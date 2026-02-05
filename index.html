@@ -3,168 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Cotización</title>
+    <title>Sea Group Peru - Cotizador Animado</title>
     <style>
         :root {
             --sea-red: rgb(239, 77, 72);
-            --sea-blue: #003366; /* Azul profundo típico de logística/marítimo */
-            --light-gray: #f4f7f9;
+            --sea-blue: #003366;
+            --bg-gray: #f9f9f9;
+        }
+
+        /* Keyframes para las animaciones */
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 77, 72, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 77, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 77, 72, 0); }
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: rgba(0,0,0,0.5); /* Fondo oscurecido para simular el modal */
-            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-
-        .modal-container {
-            background-color: white;
-            width: 95%;
-            max-width: 500px;
-            border-radius: 4px; /* Bordes menos redondeados para un look más corporativo */
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
-            border-top: 6px solid var(--sea-red);
-        }
-
-        .close-x {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-
-        .modal-header {
-            padding: 30px 30px 10px 30px;
-            text-align: center;
-        }
-
-        .modal-header h2 {
-            color: var(--sea-blue);
+            min-height: 100vh;
             margin: 0;
-            font-size: 24px;
+            overflow: hidden;
+        }
+
+        .popup-card {
+            background: white;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border-top: 8px solid var(--sea-red);
+            padding: 30px;
+            position: relative;
+            /* Animación de entrada */
+            animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        h2 {
+            color: var(--sea-blue);
+            margin-top: 0;
+            font-size: 22px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            text-align: center;
+            animation: fadeInUp 0.5s ease backwards;
+            animation-delay: 0.2s;
         }
 
-        .modal-header p {
-            color: #666;
-            font-size: 14px;
-            margin-top: 10px;
+        .form-group {
+            margin-bottom: 18px;
+            /* Los campos aparecen escalonados */
+            animation: fadeInUp 0.5s ease backwards;
         }
 
-        form {
-            padding: 20px 30px 40px 30px;
+        /* Retrasos para cada campo */
+        .f1 { animation-delay: 0.3s; }
+        .f2 { animation-delay: 0.4s; }
+        .f3 { animation-delay: 0.5s; }
+        .f4 { animation-delay: 0.6s; }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
         }
 
-        .input-field {
+        input, select {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
             border: 1px solid #ddd;
-            border-radius: 3px;
+            border-radius: 5px;
             box-sizing: border-box;
             font-size: 14px;
-            background-color: var(--light-gray);
-            transition: border 0.3s;
+            background-color: var(--bg-gray);
+            transition: all 0.3s ease;
         }
 
-        .input-field:focus {
+        input:focus, select:focus {
             outline: none;
-            border: 1px solid var(--sea-blue);
+            border-color: var(--sea-red);
             background-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        .btn-whatsapp {
-            width: 100%;
+        .radio-group {
+            display: flex;
+            gap: 25px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .radio-option:hover { color: var(--sea-red); }
+
+        .radio-option input {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
             background-color: var(--sea-red);
             color: white;
             border: none;
             padding: 16px;
-            font-size: 14px;
+            width: 100%;
+            font-size: 15px;
             font-weight: bold;
-            text-transform: uppercase;
+            border-radius: 50px; /* Más redondeado para look moderno */
             cursor: pointer;
-            border-radius: 3px;
-            transition: background 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            transition: 0.3s;
+            animation: fadeInUp 0.5s ease backwards, pulse 2s infinite;
+            animation-delay: 0.7s;
         }
 
-        .btn-whatsapp:hover {
-            background-color: #d13d38;
-            box-shadow: 0 4px 12px rgba(239, 77, 72, 0.3);
-        }
-
-        /* Estilo sutil para etiquetas */
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 12px;
-            color: var(--sea-blue);
-            font-weight: bold;
+        .btn-submit:hover {
+            background-color: #c93a35;
+            transform: scale(1.03);
         }
     </style>
 </head>
 <body>
 
-    <div class="modal-container">
-        <button class="close-x">&times;</button>
+    <div class="popup-card">
+        <h2>Nueva Cotización</h2>
         
-        <div class="modal-header">
-            <h2>Cotiza con Nosotros</h2>
-            <p>Completa tus datos para iniciar tu operación logística</p>
-        </div>
+        <form id="waSeaForm">
+            <div class="form-group f1">
+                <label>Nombre y Apellido</label>
+                <input type="text" id="nombreCompleto" placeholder="Ej. Juan Pérez" required>
+            </div>
 
-        <form id="seaGroupForm">
-            <input type="text" id="nombre" class="input-field" placeholder="Nombre" required>
-            <input type="text" id="apellidos" class="input-field" placeholder="Apellidos" required>
-            <input type="email" id="correo" class="input-field" placeholder="Correo electrónico" required>
-            <input type="tel" id="celular" class="input-field" placeholder="Número de celular" required>
-            <input type="text" id="rubro" class="input-field" placeholder="Rubro de mercado (Ej. Retail, Minería...)" required>
+            <div class="form-group f2">
+                <label>N° de Teléfono</label>
+                <input type="tel" id="telefono" placeholder="Ej. 934290174" required>
+            </div>
 
-            <button type="submit" class="btn-whatsapp">
-                Enviar Solicitud a WhatsApp
-            </button>
+            <div class="form-group f3">
+                <label>Rubro de Mercado</label>
+                <select id="rubro" required>
+                    <option value="" disabled selected>Seleccione su rubro</option>
+                    <option value="Tecnología">Tecnología / Electrónica</option>
+                    <option value="Industrial">Industrial / Maquinaria</option>
+                    <option value="Textil">Textil / Calzado</option>
+                    <option value="Retail">Retail / Consumo masivo</option>
+                    <option value="Otro">Otro rubro</option>
+                </select>
+            </div>
+
+            <div class="form-group f4">
+                <label>¿Ha importado antes?</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="importado" value="Sí, con experiencia" required> Sí
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="importado" value="No, primera vez"> No
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Solicitar Propuesta vía WhatsApp</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('seaGroupForm').addEventListener('submit', function(e) {
+        document.getElementById('waSeaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Captura de datos
-            const data = {
-                nombre: document.getElementById('nombre').value,
-                apellidos: document.getElementById('apellidos').value,
-                correo: document.getElementById('correo').value,
-                celular: document.getElementById('celular').value,
-                rubro: document.getElementById('rubro').value
-            };
+            const nombre = document.getElementById('nombreCompleto').value;
+            const tel = document.getElementById('telefono').value;
+            const rubro = document.getElementById('rubro').value;
+            const importoAntes = document.querySelector('input[name="importado"]:checked').value;
 
-            const numeroWsp = "51934290174";
-            
-            // Mensaje personalizado para Sea Group Peru
-            const mensaje = `*SOLICITUD DE COTIZACIÓN - SEA GROUP PERU*%0A%0A` +
-                            `*Nombre:* ${data.nombre} ${data.apellidos}%0A` +
-                            `*Correo:* ${data.correo}%0A` +
-                            `*Celular:* ${data.celular}%0A` +
-                            `*Rubro:* ${data.rubro}%0A%0A` +
-                            `_Enviado desde el portal de servicios logísticos._`;
+            const phone = "51934290174";
 
-            // Ejecutar redirección
-            window.open(`https://wa.me/${numeroWsp}?text=${mensaje}`, '_blank');
+            const text = `*COTIZACIÓN SEA GROUP PERU*%0A%0A` +
+                         `*Cliente:* ${nombre}%0A` +
+                         `*Teléfono:* ${tel}%0A` +
+                         `*Rubro:* ${rubro}%0A` +
+                         `*Importador previo:* ${importoAntes}`;
+
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
         });
     </script>
 
