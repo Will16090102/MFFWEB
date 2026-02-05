@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Cotizador Animado</title>
+    <title>Sea Group Peru - Cotizador Pro</title>
     <style>
         :root {
             --sea-red: rgb(239, 77, 72);
@@ -11,9 +11,9 @@
             --bg-gray: #f9f9f9;
         }
 
-        /* Keyframes para las animaciones */
+        /* Animaciones */
         @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.8); }
+            from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
 
@@ -36,26 +36,42 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
 
         .popup-card {
             background: white;
             width: 90%;
             max-width: 420px;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border-top: 8px solid var(--sea-red);
-            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            overflow: hidden; /* Para que la cabecera roja respete el radio del borde */
             position: relative;
-            /* Animación de entrada */
             animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Capa roja superior para el logo */
+        .header-logo {
+            background-color: var(--sea-red);
+            padding: 25px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-logo img {
+            max-width: 180px; /* Ajusta según el tamaño de tu logo.png */
+            height: auto;
+        }
+
+        .content {
+            padding: 30px;
         }
 
         h2 {
             color: var(--sea-blue);
-            margin-top: 0;
-            font-size: 22px;
+            margin: 0 0 20px 0;
+            font-size: 20px;
             text-transform: uppercase;
             text-align: center;
             animation: fadeInUp 0.5s ease backwards;
@@ -63,12 +79,11 @@
         }
 
         .form-group {
-            margin-bottom: 18px;
-            /* Los campos aparecen escalonados */
+            margin-bottom: 15px;
             animation: fadeInUp 0.5s ease backwards;
         }
 
-        /* Retrasos para cada campo */
+        /* Escalonamiento de campos */
         .f1 { animation-delay: 0.3s; }
         .f2 { animation-delay: 0.4s; }
         .f3 { animation-delay: 0.5s; }
@@ -79,14 +94,14 @@
             margin-bottom: 6px;
             font-size: 13px;
             font-weight: bold;
-            color: #444;
+            color: var(--sea-blue);
         }
 
         input, select {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
             background-color: var(--bg-gray);
@@ -97,13 +112,12 @@
             outline: none;
             border-color: var(--sea-red);
             background-color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .radio-group {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             margin-top: 8px;
         }
 
@@ -112,15 +126,12 @@
             align-items: center;
             font-size: 14px;
             cursor: pointer;
-            transition: color 0.3s;
+            color: #555;
         }
-
-        .radio-option:hover { color: var(--sea-red); }
 
         .radio-option input {
             width: auto;
-            margin-right: 10px;
-            cursor: pointer;
+            margin-right: 8px;
         }
 
         .btn-submit {
@@ -131,63 +142,69 @@
             width: 100%;
             font-size: 15px;
             font-weight: bold;
-            border-radius: 50px; /* Más redondeado para look moderno */
+            border-radius: 8px;
             cursor: pointer;
             text-transform: uppercase;
-            margin-top: 10px;
+            margin-top: 15px;
             transition: 0.3s;
-            animation: fadeInUp 0.5s ease backwards, pulse 2s infinite;
+            animation: fadeInUp 0.5s ease backwards, pulse 2.5s infinite;
             animation-delay: 0.7s;
         }
 
         .btn-submit:hover {
             background-color: #c93a35;
-            transform: scale(1.03);
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
     <div class="popup-card">
-        <h2>Nueva Cotización</h2>
-        
-        <form id="waSeaForm">
-            <div class="form-group f1">
-                <label>Nombre y Apellido</label>
-                <input type="text" id="nombreCompleto" placeholder="Ej. Juan Pérez" required>
-            </div>
+        <div class="header-logo">
+            <img src="logo.png" alt="Sea Group Peru Logo">
+        </div>
 
-            <div class="form-group f2">
-                <label>N° de Teléfono</label>
-                <input type="tel" id="telefono" placeholder="Ej. 934290174" required>
-            </div>
-
-            <div class="form-group f3">
-                <label>Rubro de Mercado</label>
-                <select id="rubro" required>
-                    <option value="" disabled selected>Seleccione su rubro</option>
-                    <option value="Tecnología">Tecnología / Electrónica</option>
-                    <option value="Industrial">Industrial / Maquinaria</option>
-                    <option value="Textil">Textil / Calzado</option>
-                    <option value="Retail">Retail / Consumo masivo</option>
-                    <option value="Otro">Otro rubro</option>
-                </select>
-            </div>
-
-            <div class="form-group f4">
-                <label>¿Ha importado antes?</label>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="importado" value="Sí, con experiencia" required> Sí
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="importado" value="No, primera vez"> No
-                    </label>
+        <div class="content">
+            <h2>Nueva Cotización</h2>
+            
+            <form id="waSeaForm">
+                <div class="form-group f1">
+                    <label>Nombre y Apellido</label>
+                    <input type="text" id="nombreCompleto" placeholder="Ej. Juan Pérez" required>
                 </div>
-            </div>
 
-            <button type="submit" class="btn-submit">Solicitar Propuesta vía WhatsApp</button>
-        </form>
+                <div class="form-group f2">
+                    <label>N° de Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="Ej. 934290174" required>
+                </div>
+
+                <div class="form-group f3">
+                    <label>Rubro de Mercado</label>
+                    <select id="rubro" required>
+                        <option value="" disabled selected>Seleccione su rubro</option>
+                        <option value="Tecnología">Tecnología / Electrónica</option>
+                        <option value="Industrial">Industrial / Maquinaria</option>
+                        <option value="Textil">Textil / Calzado</option>
+                        <option value="Retail">Retail / Consumo masivo</option>
+                        <option value="Otro">Otro rubro</option>
+                    </select>
+                </div>
+
+                <div class="form-group f4">
+                    <label>¿Ha importado antes?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="importado" value="Sí, con experiencia" required> Sí
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="importado" value="No, primera vez"> No
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Solicitar Propuesta vía WhatsApp</button>
+            </form>
+        </div>
     </div>
 
     <script>
