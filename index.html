@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Cotizador Pro</title>
+    <title>Sea Group Peru - Cotizador Flexible</title>
     <style>
         :root {
             --sea-red: rgb(239, 77, 72);
@@ -44,12 +44,11 @@
             max-width: 420px;
             border-radius: 12px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-            overflow: hidden; /* Para que la cabecera roja respete el radio del borde */
+            overflow: hidden;
             position: relative;
             animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Capa roja superior para el logo */
         .header-logo {
             background-color: var(--sea-red);
             padding: 25px;
@@ -60,7 +59,7 @@
         }
 
         .header-logo img {
-            max-width: 180px; /* Ajusta según el tamaño de tu logo.png */
+            max-width: 180px;
             height: auto;
         }
 
@@ -83,7 +82,6 @@
             animation: fadeInUp 0.5s ease backwards;
         }
 
-        /* Escalonamiento de campos */
         .f1 { animation-delay: 0.3s; }
         .f2 { animation-delay: 0.4s; }
         .f3 { animation-delay: 0.5s; }
@@ -170,23 +168,22 @@
             <form id="waSeaForm">
                 <div class="form-group f1">
                     <label>Nombre y Apellido</label>
-                    <input type="text" id="nombreCompleto" placeholder="Ej. Juan Pérez" required>
+                    <input type="text" id="nombreCompleto" placeholder="Ej. Juan Pérez">
                 </div>
 
                 <div class="form-group f2">
                     <label>N° de Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="Ej. 934290174" required>
+                    <input type="tel" id="telefono" placeholder="Ej. 934290174">
                 </div>
 
                 <div class="form-group f3">
                     <label>Rubro de Mercado</label>
-                    <select id="rubro" required>
-                        <option value="" disabled selected>Seleccione su rubro</option>
+                    <select id="rubro">
                         <option value="Tecnología">Tecnología / Electrónica</option>
                         <option value="Industrial">Industrial / Maquinaria</option>
                         <option value="Textil">Textil / Calzado</option>
                         <option value="Retail">Retail / Consumo masivo</option>
-                        <option value="Otro">Otro rubro</option>
+                        <option value="Otro" selected>Otro rubro</option>
                     </select>
                 </div>
 
@@ -194,15 +191,18 @@
                     <label>¿Ha importado antes?</label>
                     <div class="radio-group">
                         <label class="radio-option">
-                            <input type="radio" name="importado" value="Sí, con experiencia" required> Sí
+                            <input type="radio" name="importado" value="Sí"> Sí
                         </label>
                         <label class="radio-option">
-                            <input type="radio" name="importado" value="No, primera vez"> No
+                            <input type="radio" name="importado" value="No"> No
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="importado" value="No especifica" checked style="display:none">
                         </label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Solicitar Propuesta vía WhatsApp</button>
+                <button type="submit" class="btn-submit">Enviar a WhatsApp</button>
             </form>
         </div>
     </div>
@@ -211,10 +211,14 @@
         document.getElementById('waSeaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const nombre = document.getElementById('nombreCompleto').value;
-            const tel = document.getElementById('telefono').value;
+            // Captura valores o envía "No especificado" si están vacíos
+            const nombre = document.getElementById('nombreCompleto').value || "No especificado";
+            const tel = document.getElementById('telefono').value || "No especificado";
             const rubro = document.getElementById('rubro').value;
-            const importoAntes = document.querySelector('input[name="importado"]:checked').value;
+            
+            // Lógica para radio buttons (si no marca nada, se envía el valor oculto)
+            const radioSel = document.querySelector('input[name="importado"]:checked');
+            const importoAntes = radioSel ? radioSel.value : "No especificado";
 
             const phone = "51934290174";
 
