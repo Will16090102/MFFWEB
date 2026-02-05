@@ -3,147 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pop-up a WhatsApp</title>
+    <title>Sea Group Peru - Cotización</title>
     <style>
         :root {
-            --rojo-corporativo: rgb(239, 77, 72);
-            --fondo-lila: #d1a6d1;
+            --sea-red: rgb(239, 77, 72);
+            --sea-blue: #003366; /* Azul profundo típico de logística/marítimo */
+            --light-gray: #f4f7f9;
         }
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #333;
+            background-color: rgba(0,0,0,0.5); /* Fondo oscurecido para simular el modal */
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
 
-        /* Contenedor principal */
-        .popup-card {
-            background-color: var(--fondo-lila);
-            width: 90%;
-            max-width: 450px;
-            padding: 30px;
-            border-radius: 12px;
+        .modal-container {
+            background-color: white;
+            width: 95%;
+            max-width: 500px;
+            border-radius: 4px; /* Bordes menos redondeados para un look más corporativo */
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-top: 6px solid var(--sea-red);
         }
 
-        /* Botón cerrar */
-        .btn-close {
+        .close-x {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--rojo-corporativo);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
+            font-size: 24px;
+            color: #999;
             cursor: pointer;
-            font-weight: bold;
+            border: none;
+            background: none;
         }
 
-        /* Encabezado */
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+        .modal-header {
+            padding: 30px 30px 10px 30px;
+            text-align: center;
         }
 
-        .emoji { font-size: 45px; }
-
-        .title h1 {
-            color: var(--rojo-corporativo);
+        .modal-header h2 {
+            color: var(--sea-blue);
             margin: 0;
-            font-size: 35px;
-            font-family: Georgia, serif;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .title p {
-            margin: 0;
-            font-weight: bold;
+        .modal-header p {
+            color: #666;
             font-size: 14px;
-            color: #444;
+            margin-top: 10px;
         }
 
-        /* Estilo de inputs */
-        .input-group {
-            margin-bottom: 12px;
+        form {
+            padding: 20px 30px 40px 30px;
         }
 
-        input {
+        .input-field {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
             box-sizing: border-box;
             font-size: 14px;
+            background-color: var(--light-gray);
+            transition: border 0.3s;
         }
 
-        input:focus {
-            outline: 2px solid var(--rojo-corporativo);
-            border-color: transparent;
+        .input-field:focus {
+            outline: none;
+            border: 1px solid var(--sea-blue);
+            background-color: #fff;
         }
 
-        /* Botón WhatsApp */
-        .btn-send {
-            background-color: var(--rojo-corporativo);
+        .btn-whatsapp {
+            width: 100%;
+            background-color: var(--sea-red);
             color: white;
             border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 30px;
-            font-size: 16px;
+            padding: 16px;
+            font-size: 14px;
             font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s ease;
             text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        .btn-send:hover {
-            filter: brightness(1.1);
+        .btn-whatsapp:hover {
+            background-color: #d13d38;
+            box-shadow: 0 4px 12px rgba(239, 77, 72, 0.3);
+        }
+
+        /* Estilo sutil para etiquetas */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: var(--sea-blue);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="popup-card">
-        <button class="btn-close">×</button>
+    <div class="modal-container">
+        <button class="close-x">&times;</button>
         
-        <div class="header">
-            <span class="emoji">🤔</span>
-            <div class="title">
-                <h1>Ups!!!</h1>
-                <p>¿Aún no tienes un sitio web?</p>
-            </div>
+        <div class="modal-header">
+            <h2>Cotiza con Nosotros</h2>
+            <p>Completa tus datos para iniciar tu operación logística</p>
         </div>
 
-        <form id="waForm">
-            <div class="input-group">
-                <input type="text" id="nom" placeholder="Nombre" required>
-            </div>
-            <div class="input-group">
-                <input type="text" id="ape" placeholder="Apellidos" required>
-            </div>
-            <div class="input-group">
-                <input type="email" id="mail" placeholder="Correo electrónico" required>
-            </div>
-            <div class="input-group">
-                <input type="tel" id="tel" placeholder="Número de celular" required>
-            </div>
-            <div class="input-group">
-                <input type="text" id="rub" placeholder="Rubro de mercado" required>
-            </div>
+        <form id="seaGroupForm">
+            <input type="text" id="nombre" class="input-field" placeholder="Nombre" required>
+            <input type="text" id="apellidos" class="input-field" placeholder="Apellidos" required>
+            <input type="email" id="correo" class="input-field" placeholder="Correo electrónico" required>
+            <input type="tel" id="celular" class="input-field" placeholder="Número de celular" required>
+            <input type="text" id="rubro" class="input-field" placeholder="Rubro de mercado (Ej. Retail, Minería...)" required>
 
-            <button type="submit" class="btn-send">Enviar a WhatsApp</button>
+            <button type="submit" class="btn-whatsapp">
+                Enviar Solicitud a WhatsApp
+            </button>
         </form>
     </div>
 
     <script>
-        document.getElementById('waForm').addEventListener('submit', function(e) {
-            e
+        document.getElementById('seaGroupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Captura de datos
+            const data = {
+                nombre: document.getElementById('nombre').value,
+                apellidos: document.getElementById('apellidos').value,
+                correo: document.getElementById('correo').value,
+                celular: document.getElementById('celular').value,
+                rubro: document.getElementById('rubro').value
+            };
+
+            const numeroWsp = "51934290174";
+            
+            // Mensaje personalizado para Sea Group Peru
+            const mensaje = `*SOLICITUD DE COTIZACIÓN - SEA GROUP PERU*%0A%0A` +
+                            `*Nombre:* ${data.nombre} ${data.apellidos}%0A` +
+                            `*Correo:* ${data.correo}%0A` +
+                            `*Celular:* ${data.celular}%0A` +
+                            `*Rubro:* ${data.rubro}%0A%0A` +
+                            `_Enviado desde el portal de servicios logísticos._`;
+
+            // Ejecutar redirección
+            window.open(`https://wa.me/${numeroWsp}?text=${mensaje}`, '_blank');
+        });
+    </script>
+
+</body>
+</html>
