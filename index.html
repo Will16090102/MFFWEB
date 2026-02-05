@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Propuesta de Sitio Web - Pop Up</title>
+    <title>Pop-up a WhatsApp</title>
     <style>
         :root {
-            --primary-red: rgb(239, 77, 72);
-            --bg-purple: #d1a6d1; /* El tono lila del fondo en la imagen */
-            --white: #ffffff;
+            --rojo-corporativo: rgb(239, 77, 72);
+            --fondo-lila: #d1a6d1;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,23 +20,23 @@
             margin: 0;
         }
 
-        /* Contenedor del Pop-up */
-        .popup-container {
-            background-color: var(--bg-purple);
+        /* Contenedor principal */
+        .popup-card {
+            background-color: var(--fondo-lila);
             width: 90%;
-            max-width: 800px;
-            padding: 40px;
-            border-radius: 5px;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 12px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
-        /* Botón de cerrar */
-        .close-btn {
+        /* Botón cerrar */
+        .btn-close {
             position: absolute;
             top: 15px;
             right: 15px;
-            background-color: var(--primary-red);
+            background: var(--rojo-corporativo);
             color: white;
             border: none;
             border-radius: 50%;
@@ -48,132 +47,103 @@
         }
 
         /* Encabezado */
-        .header-section {
+        .header {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .emoji-thinker {
-            font-size: 60px;
-            margin-right: 20px;
-        }
+        .emoji { font-size: 45px; }
 
-        .title-text h1 {
-            color: var(--primary-red);
+        .title h1 {
+            color: var(--rojo-corporativo);
             margin: 0;
-            font-size: 42px;
-            font-family: 'Georgia', serif;
+            font-size: 35px;
+            font-family: Georgia, serif;
         }
 
-        .title-text p {
-            margin: 5px 0;
+        .title p {
+            margin: 0;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 14px;
             color: #444;
         }
 
-        .subtitle {
-            margin-bottom: 30px;
-            line-height: 1.4;
-            color: #333;
+        /* Estilo de inputs */
+        .input-group {
+            margin-bottom: 12px;
         }
 
-        /* Formulario */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        input, select, textarea {
+        input {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
         }
 
-        textarea {
-            height: 100px;
-            resize: none;
+        input:focus {
+            outline: 2px solid var(--rojo-corporativo);
+            border-color: transparent;
         }
 
-        .label-custom {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #444;
-        }
-
-        /* Botón de acción con el color solicitado */
-        .submit-btn {
-            grid-column: span 2;
-            background-color: var(--primary-red);
+        /* Botón WhatsApp */
+        .btn-send {
+            background-color: var(--rojo-corporativo);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 18px;
+            padding: 15px;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            width: fit-content;
             margin-top: 10px;
-            transition: background 0.3s;
+            transition: background 0.3s ease;
+            text-transform: uppercase;
         }
 
-        .submit-btn:hover {
+        .btn-send:hover {
             filter: brightness(1.1);
-        }
-
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .submit-btn { grid-column: 1; width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="popup-container">
-        <button class="close-btn">X</button>
+    <div class="popup-card">
+        <button class="btn-close">×</button>
         
-        <div class="header-section">
-            <div class="emoji-thinker">🤔</div>
-            <div class="title-text">
+        <div class="header">
+            <span class="emoji">🤔</span>
+            <div class="title">
                 <h1>Ups!!!</h1>
-                <p>¿Así que todavía no tienes un sitio web para tu negocio???</p>
+                <p>¿Aún no tienes un sitio web?</p>
             </div>
         </div>
 
-        <p class="subtitle">Cuéntanos brevemente acerca de tu empresa o negocio para que podamos comenzar a pensar juntos una propuesta para tu sitio web.</p>
-
-        <form>
-            <div class="form-grid">
-                <div class="inputs-left">
-                    <input type="text" placeholder="Nombre y Apellido" style="margin-bottom: 10px;">
-                    <input type="email" placeholder="Email" style="margin-bottom: 10px;">
-                    <input type="text" placeholder="URL del sitio web" style="margin-bottom: 10px;">
-                    <input type="text" placeholder="Empresa" style="margin-bottom: 10px;">
-                    <input type="text" placeholder="Tu cargo en la empresa">
-                </div>
-
-                <div class="inputs-right">
-                    <label class="label-custom">¿Cuán probable es que encares el proyecto de sitio web para tu negocio en el corto plazo?</label>
-                    <select style="margin-bottom: 10px;">
-                        <option>Elije tu respuesta</option>
-                        <option>Muy probable</option>
-                        <option>Tal vez pronto</option>
-                        <option>Solo consulto</option>
-                    </select>
-                    <textarea placeholder="Cuéntanos de tu negocio"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Solicitar Propuesta</button>
+        <form id="waForm">
+            <div class="input-group">
+                <input type="text" id="nom" placeholder="Nombre" required>
             </div>
+            <div class="input-group">
+                <input type="text" id="ape" placeholder="Apellidos" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="mail" placeholder="Correo electrónico" required>
+            </div>
+            <div class="input-group">
+                <input type="tel" id="tel" placeholder="Número de celular" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="rub" placeholder="Rubro de mercado" required>
+            </div>
+
+            <button type="submit" class="btn-send">Enviar a WhatsApp</button>
         </form>
     </div>
 
-</body>
-</html>
+    <script>
+        document.getElementById('waForm').addEventListener('submit', function(e) {
+            e
