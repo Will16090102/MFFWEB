@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Importación Eficiente</title>
+    <title>Sea Group Peru - Contacto Experto</title>
     <style>
         :root {
             --sea-red: #ef4d48;
@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,19 +22,16 @@
             margin: 0;
         }
 
-        /* Contenedor Principal estilo Modal */
         .popup-container {
             background: var(--bg-light);
             width: 95%;
-            max-width: 550px;
+            max-width: 500px;
             padding: 40px;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             position: relative;
-            animation: fadeIn 0.4s ease-out;
         }
 
-        /* Botón cerrar (decorativo) */
         .close-btn {
             position: absolute;
             top: 15px;
@@ -42,99 +39,88 @@
             font-size: 20px;
             cursor: pointer;
             color: #000;
-            font-weight: bold;
         }
 
-        /* Títulos */
         h1 {
             color: var(--sea-dark);
-            font-size: 42px;
-            margin: 0 0 25px 0;
+            font-size: 38px;
+            margin: 0 0 20px 0;
             line-height: 1.1;
             font-weight: 800;
         }
 
         p {
             color: var(--text-gray);
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--sea-dark);
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background-color: #fdfdfd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+            margin-bottom: 18px;
         }
 
         .section-title {
             font-weight: bold;
             color: var(--sea-dark);
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin: 10px 0 15px 0;
             display: block;
         }
 
-        /* Estilo de los Radio Buttons (Servicios) */
         .services-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
         .service-option {
             display: flex;
             align-items: center;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--sea-dark);
             cursor: pointer;
         }
 
         .service-option input {
-            margin-right: 12px;
-            width: 18px;
-            height: 18px;
-            accent-color: #007bff; /* Color azul del radio en la imagen */
+            margin-right: 10px;
+            width: 17px;
+            height: 17px;
+            accent-color: #007bff;
         }
 
-        /* Campos de texto */
-        .input-label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
-        input[type="email"], input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        /* Botón Principal */
         .btn-submit {
             background-color: var(--sea-red);
             color: white;
             border: none;
-            padding: 18px 30px;
-            font-size: 16px;
+            padding: 16px 35px;
+            font-size: 15px;
             font-weight: bold;
-            border-radius: 50px; /* Estilo redondeado del botón */
+            border-radius: 50px;
             cursor: pointer;
             text-transform: uppercase;
-            transition: background 0.3s ease;
+            width: 100%;
+            transition: 0.3s;
         }
 
         .btn-submit:hover {
             background-color: #d6413c;
+            transform: translateY(-1px);
         }
-
-        /* Animación */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
     </style>
 </head>
 <body>
@@ -143,18 +129,22 @@
         <div class="close-btn">×</div>
         
         <h1>¿Quieres importar de Manera Eficiente?</h1>
-        
-        <p>Déjanos tus datos y un experto te contactará.</p>
-        <p>Para orientarte según el producto y el país con el que deseas importar y los pasos que necesitas para empezar.</p>
+        <p>Déjanos tus datos y un experto te contactará para orientarte en tu proceso.</p>
 
         <form id="waSeaForm">
-            <span class="section-title">Servicios</span>
+            <label class="input-label">Nombre y Apellido</label>
+            <input type="text" id="nombre" placeholder="Ej. Wilmer Anton">
+
+            <label class="input-label">N° de Teléfono</label>
+            <input type="tel" id="telefono" placeholder="Ej. 934290174">
+
+            <span class="section-title">Servicios de interés</span>
             <div class="services-group">
                 <label class="service-option">
                     <input type="radio" name="servicio" value="Agenciamiento de Aduana"> Agenciamiento de Aduana
                 </label>
                 <label class="service-option">
-                    <input type="radio" name="servicio" value="Agenciamiento de Carga internacional" checked> Agenciamiento de Carga internacional
+                    <input type="radio" name="servicio" value="Agenciamiento de Carga internacional"> Agenciamiento de Carga internacional
                 </label>
                 <label class="service-option">
                     <input type="radio" name="servicio" value="Asesoría en importación y exportación"> Asesoría en importación y exportación
@@ -164,12 +154,6 @@
                 </label>
             </div>
 
-            <label class="input-label">Email *</label>
-            <input type="email" id="email" placeholder="tu@email.com">
-
-            <label class="input-label">Nombre o Empresa</label>
-            <input type="text" id="nombre" placeholder="Ej. Juan Perez / Empresa SAC">
-
             <button type="submit" class="btn-submit">Contactar con un experto</button>
         </form>
     </div>
@@ -178,24 +162,31 @@
         document.getElementById('waSeaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Captura de datos (Flexibilidad: si está vacío envía "No especificado")
-            const email = document.getElementById('email').value || "No especificado";
-            const nombre = document.getElementById('nombre').value || "No especificado";
-            
-            // Obtener el servicio seleccionado
+            // Captura de valores
+            const nombre = document.getElementById('nombre').value.trim();
+            const tel = document.getElementById('telefono').value.trim();
             const servicioSel = document.querySelector('input[name="servicio"]:checked');
-            const servicio = servicioSel ? servicioSel.value : "No especificado";
+            const servicio = servicioSel ? servicioSel.value : "";
 
-            // Tu número de WhatsApp (Sea Group)
+            // Lógica de mensaje: Si todo está vacío, envía mensaje genérico
+            let text = "";
+            
+            if (!nombre && !tel && !servicio) {
+                text = "Hola, estoy interesado en sus servicios de importación eficiente. Me gustaría recibir más información.";
+            } else {
+                // Si hay datos, los organiza (usando "No especificado" si falta alguno individualmente)
+                const n = nombre || "No especificado";
+                const t = tel || "No especificado";
+                const s = servicio || "No especificado";
+
+                text = `*NUEVA SOLICITUD DE INFORMACIÓN*%0A%0A` +
+                       `*Nombre:* ${n}%0A` +
+                       `*Teléfono:* ${t}%0A` +
+                       `*Servicio de interés:* ${s}%0A%0A` +
+                       `Estoy interesado en recibir asesoría.`;
+            }
+
             const phone = "51934290174"; 
-
-            // Construcción del mensaje para WhatsApp
-            const text = `*NUEVO LEAD - IMPORTACIÓN EFICIENTE*%0A%0A` +
-                         `*Servicio:* ${servicio}%0A` +
-                         `*Email:* ${email}%0A` +
-                         `*Nombre:* ${nombre}`;
-
-            // Abrir WhatsApp en una nueva pestaña
             window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
         });
     </script>
