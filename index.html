@@ -15,50 +15,55 @@
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f4f4f4; /* Color de respaldo */
+            /* IMPORTANTE: Fondo transparente para permitir ver la imagen detrás */
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            position: relative;
-            overflow: hidden; /* Evita scrollbars por el escalado del fondo */
+            position: relative; 
+            overflow-x: hidden; /* Evita scroll horizontal por el efecto de escala */
         }
 
-        /* --- AQUÍ ESTÁ EL TRUCO PARA EL FONDO DIFUMINADO --- */
+        /* --- CONFIGURACIÓN DEL FONDO (Imagen fondo.png) --- */
         body::before {
             content: "";
-            position: fixed;
+            position: fixed; /* Fijo para que cubra toda la pantalla siempre */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('fondo.png'); /* Tu imagen */
+            
+            /* Aquí cargamos tu imagen local */
+            background-image: url('fondo.png'); 
+            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             
-            /* Efecto de difuminado */
-            filter: blur(10px) brightness(0.9); 
+            /* Efectos visuales */
+            filter: blur(8px); /* Difuminado */
+            transform: scale(1.1); /* Escala para ocultar bordes borrosos */
             
-            /* Escala para evitar bordes blancos por el blur */
-            transform: scale(1.1); 
-            
-            z-index: -1; /* Se asegura de estar detrás de todo */
+            /* Manda la imagen al fondo, detrás del formulario */
+            z-index: -1; 
         }
-        /* --------------------------------------------------- */
 
-        /* Contenedor Principal */
+        /* --- CONTENEDOR DEL FORMULARIO --- */
         .popup-container {
-            /* Hacemos el blanco ligeramente transparente para estilo moderno */
-            background: rgba(255, 255, 255, 0.96); 
-            backdrop-filter: blur(5px); /* Efecto vidrio extra */
+            /* Blanco con muy ligera transparencia */
+            background: rgba(255, 255, 255, 0.95);
             width: 95%;
             max-width: 500px;
             padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); /* Sombra más fuerte para contraste */
+            
+            /* Sombra fuerte para separar el formulario del fondo */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            
             position: relative;
+            z-index: 10; /* Asegura que el formulario esté ENCIMA del fondo */
             animation: fadeIn 0.5s ease-out;
             border: 1px solid rgba(255,255,255,0.5);
         }
@@ -209,7 +214,7 @@
         <div class="close-btn">×</div>
         
         <div class="header-logo">
-            <img src="https://seagroupperu.com/wp-content/uploads/2023/logo-sea-group.png" alt="Sea Group Peru">
+            <img src="logo.png" alt="Sea Group Peru">
         </div>
 
         <h1>¿Quieres importar de Manera Eficiente?</h1>
