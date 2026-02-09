@@ -15,24 +15,52 @@
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Color de respaldo */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            position: relative;
+            overflow: hidden; /* Evita scrollbars por el escalado del fondo */
         }
+
+        /* --- AQUÍ ESTÁ EL TRUCO PARA EL FONDO DIFUMINADO --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('fondo.png'); /* Tu imagen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Efecto de difuminado */
+            filter: blur(10px) brightness(0.9); 
+            
+            /* Escala para evitar bordes blancos por el blur */
+            transform: scale(1.1); 
+            
+            z-index: -1; /* Se asegura de estar detrás de todo */
+        }
+        /* --------------------------------------------------- */
 
         /* Contenedor Principal */
         .popup-container {
-            background: var(--bg-light);
+            /* Hacemos el blanco ligeramente transparente para estilo moderno */
+            background: rgba(255, 255, 255, 0.96); 
+            backdrop-filter: blur(5px); /* Efecto vidrio extra */
             width: 95%;
             max-width: 500px;
             padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); /* Sombra más fuerte para contraste */
             position: relative;
             animation: fadeIn 0.5s ease-out;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .header-logo {
