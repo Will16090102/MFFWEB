@@ -3,298 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru | Cotizador Premium</title>
+    <title>Sea Group Peru | Soluciones Logísticas Integrales</title>
     <style>
         :root {
-            --sea-blue: #002d54;
-            --sea-red: #ef4d48;
-            --sea-red-hover: #d6413c;
-            --glass-bg: rgba(255, 255, 255, 0.92);
+            --sea-blue-dark: #002444; /* Azul profundo de Sea Group */
+            --sea-blue-light: #004a8d;
+            --sea-red: #e31e24; /* Rojo corporativo */
+            --sea-red-hover: #b3161b;
+            --text-dark: #333;
+            --glass-bg: rgba(255, 255, 255, 0.96);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
             height: 100%;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #fff;
+            background-color: #000;
         }
 
-        /* --- FONDO DINÁMICO --- */
-        .hero-viewport {
+        /* Hero Background con Overlay */
+        .hero-section {
             position: relative;
+            min-height: 100vh;
             width: 100%;
-            height: 100vh;
-            background-image: url('fondo.png');
-            background-size: cover;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=2070'); /* Imagen de respaldo profesional */
+            background-size: cover;
+            background-position: center;
+            padding: 40px 20px;
         }
 
-        .hero-viewport::before {
+        .hero-section::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 45, 84, 0.85) 0%, rgba(0, 0, 0, 0.4) 100%);
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 36, 68, 0.9) 0%, rgba(0, 0, 0, 0.5) 100%);
             z-index: 1;
         }
 
-        .main-container {
+        .container {
             position: relative;
             z-index: 2;
-            width: 90%;
-            max-width: 1150px;
+            max-width: 1200px;
+            width: 100%;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
             align-items: center;
         }
 
-        /* --- SECCIÓN IZQUIERDA (TEXTO) --- */
-        .brand-content {
-            color: white;
-            animation: slideLeft 1s ease-out;
+        /* Branding Side */
+        .hero-text {
+            animation: fadeIn 1s ease-out;
         }
 
-        .brand-content img.logo {
-            max-width: 240px;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+        .logo {
+            width: 220px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
         }
 
-        .brand-content h1 {
-            font-size: 4rem;
+        .hero-text h1 {
+            font-size: 3.8rem;
+            line-height: 1.1;
             font-weight: 800;
-            line-height: 1;
-            margin: 0 0 25px 0;
-            letter-spacing: -1px;
+            margin-bottom: 24px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
         }
 
-        .brand-content p {
+        .hero-text p {
             font-size: 1.3rem;
             line-height: 1.6;
-            opacity: 0.95;
-            max-width: 500px;
+            opacity: 0.9;
+            max-width: 550px;
+            border-left: 4px solid var(--sea-red);
+            padding-left: 20px;
         }
 
-        /* --- PANEL DE COTIZACIÓN (DERECHA) --- */
-        .quote-panel {
+        /* Form Card */
+        .form-card {
             background: var(--glass-bg);
-            padding: 45px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 28px;
+            padding: 40px;
+            color: var(--text-dark);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .quote-panel h2 {
-            margin: 0 0 30px 0;
-            font-size: 1.8rem;
-            color: var(--sea-blue);
-            font-weight: 700;
+        .form-header {
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .quote-panel h2::after {
-            content: "";
-            flex: 1;
-            height: 2px;
+        .form-header h2 {
+            font-size: 1.7rem;
+            color: var(--sea-blue-dark);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .form-header .line {
+            height: 3px;
             background: linear-gradient(to right, var(--sea-red), transparent);
+            flex-grow: 1;
+            border-radius: 2px;
         }
 
-        .input-box { margin-bottom: 20px; }
+        .input-group {
+            margin-bottom: 18px;
+        }
 
-        .input-box label {
+        .input-group label {
             display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #444;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            color: #666;
         }
 
-        .input-box input {
+        .input-group input, .input-group select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e8ed;
+            padding: 14px 18px;
+            border: 2px solid #eef2f6;
             border-radius: 12px;
             font-size: 1rem;
-            transition: 0.3s;
-            box-sizing: border-box;
-            background: white;
-        }
-
-        .input-box input:focus {
-            outline: none;
-            border-color: var(--sea-blue);
-            box-shadow: 0 0 0 4px rgba(0, 45, 84, 0.1);
-        }
-
-        /* SERVICIOS UPGRADE */
-        .service-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        .service-card {
-            display: flex;
-            align-items: center;
-            padding: 14px 18px;
+            transition: all 0.3s ease;
             background: #f8fafc;
-            border: 2px solid #edf2f7;
-            border-radius: 12px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--sea-blue-light);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 74, 141, 0.1);
+        }
+
+        /* Radio buttons styling */
+        .service-options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .service-item {
+            position: relative;
             cursor: pointer;
-            transition: 0.2s ease;
         }
 
-        .service-card:hover {
-            border-color: #cbd5e0;
-            background: #f1f5f9;
+        .service-item input {
+            display: none;
         }
 
-        .service-card input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-            accent-color: var(--sea-red);
-        }
-
-        .service-card span {
+        .service-label {
+            display: block;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border: 2px solid #eef2f6;
+            border-radius: 12px;
             font-size: 0.95rem;
-            font-weight: 500;
-            color: #2d3748;
+            font-weight: 600;
+            transition: 0.2s;
+            color: #4a5568;
         }
 
-        /* BOTÓN CTA */
-        .btn-premium {
+        .service-item input:checked + .service-label {
+            border-color: var(--sea-red);
+            background: #fff5f5;
+            color: var(--sea-red);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
             background: var(--sea-red);
             color: white;
             border: none;
-            width: 100%;
-            padding: 20px;
-            border-radius: 14px;
+            border-radius: 15px;
             font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px -5px rgba(239, 77, 72, 0.4);
-            animation: pulse-shadow 2s infinite;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
         }
 
-        .btn-premium:hover {
+        .submit-btn:hover {
             background: var(--sea-red-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px -5px rgba(239, 77, 72, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(227, 30, 36, 0.4);
         }
 
-        /* ANIMACIONES */
-        @keyframes slideLeft {
-            from { opacity: 0; transform: translateX(-40px); }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-30px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse-shadow {
-            0% { box-shadow: 0 0 0 0 rgba(239, 77, 72, 0.6); }
-            70% { box-shadow: 0 0 0 12px rgba(239, 77, 72, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 77, 72, 0); }
-        }
-
-        /* RESPONSIVE */
+        /* Responsive */
         @media (max-width: 992px) {
-            .main-container { grid-template-columns: 1fr; gap: 40px; }
-            .brand-content { text-align: center; }
-            .brand-content p { margin: 0 auto 30px; }
-            .brand-content h1 { font-size: 2.8rem; }
-            .quote-panel { max-width: 100%; }
+            .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text p { margin: 0 auto; border-left: none; border-bottom: 4px solid var(--sea-red); padding-bottom: 15px; }
+            .logo { margin-bottom: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .form-card { padding: 30px 20px; }
+            .hero-text h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hero-viewport">
-        <div class="main-container">
-            <div class="brand-content">
-                <img src="https://seagroupperu.com/wp-content/uploads/2023/logo-sea-group.png" alt="Sea Group" class="logo">
-                <h1>Tu carga, <br>nuestra prioridad.</h1>
-                <p>Optimizamos tu cadena de suministro con asesoría experta y soluciones logísticas a medida. 🚢</p>
-            </div>
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-text">
+            <img src="logo.png" alt="Sea Group Logo" class="logo">
+            <h1>Tu carga,<br>nuestra prioridad.</h1>
+            <p>Especialistas en agenciamiento de aduana y carga internacional. Brindamos soluciones logísticas eficientes y personalizadas para el comercio exterior peruano.</p>
+        </div>
 
-            <div class="quote-panel">
+        <div class="form-card">
+            <div class="form-header">
                 <h2>Cotiza ahora</h2>
-                <form id="waSeaForm">
-                    <div class="input-box">
-                        <label>Nombre y Apellido</label>
-                        <input type="text" id="nombre" placeholder="Ej: Wilmer Anton" autocomplete="off">
-                    </div>
-
-                    <div class="input-box">
-                        <label>WhatsApp Corporativo</label>
-                        <input type="tel" id="telefono" placeholder="Ej: 999 999 999">
-                    </div>
-
-                    <label class="input-box" style="margin-bottom: 10px;">
-                        <label>Selecciona un Servicio</label>
-                    </label>
-                    
-                    <div class="service-list">
-                        <label class="service-card">
-                            <input type="radio" name="servicio" value="Agenciamiento de Aduana">
-                            <span>Agenciamiento de Aduana</span>
-                        </label>
-                        <label class="service-card">
-                            <input type="radio" name="servicio" value="Agenciamiento de Carga internacional" checked>
-                            <span>Agenciamiento de Carga internacional</span>
-                        </label>
-                        <label class="service-card">
-                            <input type="radio" name="servicio" value="Asesoría en importación y exportación">
-                            <span>Asesoría en importación y exportación</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn-premium" id="btnEnviar">Solicitar Cotización</button>
-                </form>
+                <div class="line"></div>
             </div>
+
+            <form id="cotizadorForm">
+                <div class="input-group">
+                    <label>Nombre y Apellido</label>
+                    <input type="text" id="nombre" placeholder="Nombre completo" required>
+                </div>
+
+                <div class="input-group">
+                    <label>WhatsApp Corporativo</label>
+                    <input type="tel" id="telefono" placeholder="Ej: 999 999 999" required>
+                </div>
+
+                <div class="input-group">
+                    <label>¿Has importado anteriormente?</label>
+                    <select id="experiencia" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Sí, soy importador recurrente">Sí, soy importador recurrente</option>
+                        <option value="He importado algunas veces">He importado algunas veces</option>
+                        <option value="No, sería mi primera vez">No, sería mi primera vez</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Servicio Requerido</label>
+                    <div class="service-options">
+                        <label class="service-item">
+                            <input type="radio" name="servicio" value="Agenciamiento de Aduana" checked>
+                            <span class="service-label">Agenciamiento de Aduana</span>
+                        </label>
+                        <label class="service-item">
+                            <input type="radio" name="servicio" value="Agenciamiento de Carga Internacional">
+                            <span class="service-label">Carga Internacional</span>
+                        </label>
+                        <label class="service-item">
+                            <input type="radio" name="servicio" value="Asesoría Integral">
+                            <span class="service-label">Asesoría Importación/Exportación</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="btnEnviar">
+                    Solicitar Cotización
+                </button>
+            </form>
         </div>
     </div>
+</section>
 
-    <script>
-        document.getElementById('waSeaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnEnviar');
-            
-            const nombre = document.getElementById('nombre').value.trim() || "Cliente Interesado";
-            const tel = document.getElementById('telefono').value.trim() || "No especificado";
-            const servicio = document.querySelector('input[name="servicio"]:checked').value;
+<script>
+    document.getElementById('cotizadorForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnEnviar');
+        const nombre = document.getElementById('nombre').value;
+        const tel = document.getElementById('telefono').value;
+        const exp = document.getElementById('experiencia').value;
+        const servicio = document.querySelector('input[name="servicio"]:checked').value;
 
-            const mensaje = `*SEA GROUP PERU - NUEVA COTIZACIÓN*%0A%0A` +
-                            `*Cliente:* ${nombre}%0A` +
-                            `*WhatsApp:* ${tel}%0A` +
-                            `*Servicio solicitado:* ${servicio}%0A%0A` +
-                            `_Enviado desde el Cotizador Web._`;
+        // Construcción del mensaje para WhatsApp
+        const mensaje = `*SEA GROUP PERU - SOLICITUD DE COTIZACIÓN*%0A%0A` +
+                        `*Nombre:* ${nombre}%0A` +
+                        `*WhatsApp:* ${tel}%0A` +
+                        `*Experiencia:* ${exp}%0A` +
+                        `*Servicio:* ${servicio}%0A%0A` +
+                        `_Enviado desde el nuevo portal web._`;
 
-            btn.innerText = "Abriendo WhatsApp...";
-            setTimeout(() => {
-                window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
-                btn.innerText = "Solicitar Cotización";
-            }, 800);
-        });
-    </script>
+        btn.style.opacity = '0.7';
+        btn.innerText = "Conectando...";
+
+        setTimeout(() => {
+            // Reemplaza con tu número de WhatsApp real
+            window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
+            btn.style.opacity = '1';
+            btn.innerText = "Solicitar Cotización";
+        }, 800);
+    });
+</script>
 
 </body>
 </html>
