@@ -3,300 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Importación Eficiente</title>
+    <title>Sea Group Peru - Cotizador</title>
     <style>
         :root {
+            --sea-blue: #002d54; /* Azul profundo de la web */
             --sea-red: #ef4d48;
-            --sea-dark: #333333;
-            --text-gray: #666666;
-            --bg-light: #ffffff;
-            --accent-blue: #007bff;
+            --sea-light-blue: #0056b3;
+            --bg-gray: #f4f7f6;
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            /* IMPORTANTE: Fondo transparente para permitir ver la imagen detrás */
-            background-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--sea-blue);
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            position: relative; 
-            overflow-x: hidden; /* Evita scroll horizontal por el efecto de escala */
+            color: white;
         }
 
-        /* --- CONFIGURACIÓN DEL FONDO (Imagen fondo.png) --- */
-        body::before {
-            content: "";
-            position: fixed; /* Fijo para que cubra toda la pantalla siempre */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            
-            /* Aquí cargamos tu imagen local */
-            background-image: url('fondo.png'); 
-            
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            /* Efectos visuales */
-            filter: blur(8px); /* Difuminado */
-            transform: scale(1.1); /* Escala para ocultar bordes borrosos */
-            
-            /* Manda la imagen al fondo, detrás del formulario */
-            z-index: -1; 
+        /* Contenedor Principal estilo Landing Page */
+        .main-wrapper {
+            width: 90%;
+            max-width: 1100px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
         }
 
-        /* --- CONTENEDOR DEL FORMULARIO --- */
-        .popup-container {
-            /* Blanco con muy ligera transparencia */
-            background: rgba(255, 255, 255, 0.95);
-            width: 95%;
-            max-width: 500px;
+        /* Columna Izquierda: Texto e Imagen */
+        .info-section {
+            flex: 1;
+            min-width: 320px;
+            padding-right: 40px;
+        }
+
+        .info-section img.logo {
+            max-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .info-section h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .info-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* Columna Derecha: Formulario estilo Flota */
+        .form-card {
+            background: white;
+            color: #333;
             padding: 35px;
-            border-radius: 12px;
-            
-            /* Sombra fuerte para separar el formulario del fondo */
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            
-            position: relative;
-            z-index: 10; /* Asegura que el formulario esté ENCIMA del fondo */
-            animation: fadeIn 0.5s ease-out;
-            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
-        .header-logo {
-            text-align: center;
+        .form-card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--sea-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--sea-red);
+            display: inline-block;
             margin-bottom: 25px;
         }
 
-        .header-logo img {
-            max-width: 160px;
-            height: auto;
+        .form-group { margin-bottom: 15px; }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 22px;
-            cursor: pointer;
-            color: #ccc;
+        .form-group input[type="text"], 
+        .form-group input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            box-sizing: border-box;
             transition: 0.3s;
         }
 
-        .close-btn:hover { color: var(--sea-dark); }
-
-        h1 {
-            color: var(--sea-dark);
-            font-size: 34px;
-            margin: 0 0 15px 0;
-            line-height: 1.1;
-            font-weight: 800;
-            text-align: center;
-        }
-
-        p {
-            color: var(--text-gray);
-            font-size: 15px;
-            text-align: center;
-            margin-bottom: 25px;
-            line-height: 1.4;
-        }
-
-        /* Estilos de Formulario */
-        .input-label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: var(--sea-dark);
-        }
-
-        input[type="text"], input[type="tel"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            background-color: #fcfcfc;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 15px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-        }
-
-        input:focus {
+        .form-group input:focus {
+            border-color: var(--sea-light-blue);
             outline: none;
-            border-color: var(--sea-red);
-            box-shadow: 0 0 8px rgba(239, 77, 72, 0.15);
         }
 
-        .section-title {
-            font-weight: bold;
-            color: var(--sea-dark);
-            margin: 10px 0 12px 0;
-            display: block;
-            font-size: 15px;
-        }
-
-        /* Grupos de Opciones (Radio Buttons) */
-        .options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .radio-inline {
-            flex-direction: row !important;
-            gap: 25px !important;
-            margin-bottom: 25px;
-        }
-
-        .option-item {
+        /* Checkboxes/Radios estilo Requisitos */
+        .custom-option {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            font-size: 15px;
-            color: var(--sea-dark);
             cursor: pointer;
+            border: 1px solid #eee;
+            font-size: 14px;
         }
 
-        .option-item input {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent-blue);
-        }
+        .custom-option input { margin-right: 12px; }
 
-        /* Botón y Extras */
-        .btn-submit {
+        .btn-action {
             background-color: var(--sea-red);
             color: white;
             border: none;
+            width: 100%;
             padding: 18px;
-            font-size: 16px;
+            border-radius: 8px;
             font-weight: bold;
-            border-radius: 50px;
+            font-size: 16px;
             cursor: pointer;
             text-transform: uppercase;
-            width: 100%;
+            margin-top: 15px;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(239, 77, 72, 0.3);
         }
 
-        .btn-submit:hover {
+        .btn-action:hover {
             background-color: #d6413c;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(239, 77, 72, 0.4);
         }
 
-        .trust-badge {
-            display: block;
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .info-section { padding-right: 0; text-align: center; margin-bottom: 40px; }
+            .info-section h1 { font-size: 32px; }
+            .form-card { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="popup-container">
-        <div class="close-btn">×</div>
-        
-        <div class="header-logo">
-            <img src="logo.png" alt="Sea Group Peru">
+    <div class="main-wrapper">
+        <div class="info-section">
+            <img src="https://seagroupperu.com/wp-content/uploads/2023/logo-sea-group.png" alt="Sea Group Logo" class="logo">
+            <h1>Logística de importación eficiente</h1>
+            <p>Simplificamos tus operaciones aduaneras y de carga internacional. Empieza hoy tu próxima importación con expertos.</p>
+            <img src="https://seagroupperu.com/wp-content/uploads/2023/bg-hero-1.png" alt="Carga" style="width: 100%; border-radius: 10px;">
         </div>
 
-        <h1>¿Quieres importar de Manera Eficiente?</h1>
-        <p>Déjanos tus datos y un experto te contactará para orientarte según tus necesidades.</p>
+        <div class="form-card">
+            <h2>¡Solicita tu Cotización!</h2>
+            
+            <form id="waSeaForm">
+                <div class="form-group">
+                    <label>Nombre para contactarnos *</label>
+                    <input type="text" id="nombre" placeholder="Ej: Wilmer Anton">
+                </div>
 
-        <form id="waSeaForm">
-            <label class="input-label">Nombre y Apellido</label>
-            <input type="text" id="nombre" placeholder="Ej. Wilmer Anton">
+                <div class="form-group">
+                    <label>Número de WhatsApp *</label>
+                    <input type="tel" id="telefono" placeholder="Ej: 999999999">
+                </div>
 
-            <label class="input-label">N° de Teléfono</label>
-            <input type="tel" id="telefono" placeholder="Ej. 934 290 174">
+                <label style="font-size: 14px; font-weight: bold; display: block; margin-bottom: 10px;">Servicio requerido:</label>
+                
+                <label class="custom-option">
+                    <input type="radio" name="servicio" value="Carga internacional" checked> Agenciamiento de Carga
+                </label>
+                <label class="custom-option">
+                    <input type="radio" name="servicio" value="Aduanas"> Agenciamiento de Aduana
+                </label>
 
-            <span class="section-title">Servicios de interés</span>
-            <div class="options-group">
-                <label class="option-item">
-                    <input type="radio" name="servicio" value="Agenciamiento de Aduana"> Agenciamiento de Aduana
+                <label style="font-size: 14px; font-weight: bold; display: block; margin-bottom: 10px; margin-top: 15px;">Perfil de importador:</label>
+                
+                <label class="custom-option">
+                    <input type="checkbox" id="checkImportado"> Ya he realizado importaciones antes
                 </label>
-                <label class="option-item">
-                    <input type="radio" name="servicio" value="Agenciamiento de Carga internacional" checked> Agenciamiento de Carga internacional
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="servicio" value="Asesoría en importación y exportación"> Asesoría en importación y exportación
-                </label>
-            </div>
 
-            <span class="section-title">¿Ha importado antes?</span>
-            <div class="options-group radio-inline">
-                <label class="option-item">
-                    <input type="radio" name="importado" value="Sí"> Sí
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="importado" value="No"> No
-                </label>
-            </div>
-
-            <button type="submit" class="btn-submit" id="btnWsp">Contactar con un experto</button>
-            <span class="trust-badge">⚡ Respuesta inmediata vía WhatsApp</span>
-        </form>
+                <button type="submit" class="btn-action" id="btnWsp">¡Quiero mi cotización!</button>
+            </form>
+        </div>
     </div>
 
     <script>
         document.getElementById('waSeaForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('btnWsp');
-            const originalText = btn.innerText;
-
-            // Animación de carga
-            btn.innerText = "Conectando...";
-            btn.style.opacity = "0.8";
-
+            
             const nombre = document.getElementById('nombre').value.trim();
             const tel = document.getElementById('telefono').value.trim();
-            
-            const servicioSel = document.querySelector('input[name="servicio"]:checked');
-            const servicio = servicioSel ? servicioSel.value : "";
-
-            const importoSel = document.querySelector('input[name="importado"]:checked');
-            const importo = importoSel ? importoSel.value : "";
+            const servicio = document.querySelector('input[name="servicio"]:checked').value;
+            const yaImporto = document.getElementById('checkImportado').checked ? "Sí" : "No";
 
             let text = "";
-
-            // Si no hay ningún dato
-            if (!nombre && !tel && !servicio && !importo) {
-                text = "Hola, estoy interesado en sus servicios de importación eficiente. Me gustaría recibir asesoría de un experto.";
+            if (!nombre && !tel) {
+                text = "Hola Sea Group Peru, estoy interesado en recibir asesoría para importar de manera eficiente.";
             } else {
-                text = `*SOLICITUD DE ASESORÍA*%0A%0A` +
-                       `*Nombre:* ${nombre || "No especificado"}%0A` +
+                text = `*SOLICITUD DE COTIZACIÓN*%0A%0A` +
+                       `*Nombre:* ${nombre || "Interesado"}%0A` +
                        `*Teléfono:* ${tel || "No especificado"}%0A` +
-                       `*Servicio:* ${servicio || "General"}%0A` +
-                       `*Importador previo:* ${importo || "No especificado"}`;
+                       `*Servicio:* ${servicio}%0A` +
+                       `*Importador previo:* ${yaImporto}`;
             }
 
-            const phone = "51934290174"; 
-
-            // Simulación de carga antes de abrir WhatsApp
+            btn.innerText = "Abriendo WhatsApp...";
             setTimeout(() => {
-                window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-                btn.innerText = originalText;
-                btn.style.opacity = "1";
-            }, 600);
+                window.open(`https://wa.me/51934290174?text=${text}`, '_blank');
+                btn.innerText = "¡Quiero mi cotización!";
+            }, 800);
         });
     </script>
-
 </body>
 </html>
