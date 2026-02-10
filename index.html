@@ -3,222 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru - Cotizador</title>
+    <title>Sea Group Peru - Importación Inteligente</title>
     <style>
         :root {
-            --sea-blue: #002d54; /* Azul profundo de la web */
+            --sea-blue: #002d54;
             --sea-red: #ef4d48;
-            --sea-light-blue: #0056b3;
-            --bg-gray: #f4f7f6;
+            --overlay: rgba(0, 24, 46, 0.75); /* Desvanecido oscuro azulado */
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--sea-blue);
+        body, html {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- FONDO CON IMAGEN Y DESVANECIDO --- */
+        .hero-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('fondo.png'); /* Tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay); /* El ligero desvanecido */
+            z-index: -1;
+        }
+
+        .main-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: white;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Contenedor Principal estilo Landing Page */
-        .main-wrapper {
-            width: 90%;
+        .content-container {
+            width: 100%;
             max-width: 1100px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
-            padding: 20px;
+            gap: 40px;
         }
 
-        /* Columna Izquierda: Texto e Imagen */
+        /* --- ANIMACIONES TIPO FLOTA --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Columna Izquierda */
         .info-section {
             flex: 1;
-            min-width: 320px;
-            padding-right: 40px;
+            min-width: 300px;
+            color: white;
+            animation: fadeInLeft 1s ease-out;
         }
 
         .info-section img.logo {
-            max-width: 200px;
-            margin-bottom: 30px;
+            max-width: 220px;
+            margin-bottom: 20px;
         }
 
         .info-section h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
+            font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            margin: 0 0 20px 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
         .info-section p {
-            font-size: 18px;
+            font-size: 1.2rem;
+            line-height: 1.6;
             opacity: 0.9;
-            margin-bottom: 30px;
         }
 
-        /* Columna Derecha: Formulario estilo Flota */
+        /* Columna Derecha (Formulario) */
         .form-card {
             background: white;
-            color: #333;
-            padding: 35px;
-            border-radius: 15px;
+            padding: 40px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+            color: #333;
         }
 
         .form-card h2 {
-            margin-top: 0;
-            font-size: 18px;
+            margin: 0 0 25px 0;
+            font-size: 1.5rem;
             color: var(--sea-blue);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid var(--sea-red);
-            display: inline-block;
-            margin-bottom: 25px;
+            border-left: 5px solid var(--sea-red);
+            padding-left: 15px;
         }
 
         .form-group { margin-bottom: 15px; }
-
+        
         .form-group label {
             display: block;
             font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
-        .form-group input[type="text"], 
-        .form-group input[type="tel"] {
+        .form-group input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 8px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             box-sizing: border-box;
-            transition: 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: var(--sea-light-blue);
-            outline: none;
-        }
-
-        /* Checkboxes/Radios estilo Requisitos */
-        .custom-option {
             background: #f9f9f9;
+        }
+
+        /* Opciones Estilo Checklist */
+        .check-option {
+            background: #f4f4f4;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            border: 1px solid #eee;
-            font-size: 14px;
+            transition: 0.3s;
         }
 
-        .custom-option input { margin-right: 12px; }
+        .check-option:hover { background: #eee; }
+        .check-option input { margin-right: 12px; width: 18px; height: 18px; }
 
-        .btn-action {
-            background-color: var(--sea-red);
+        /* Botón con Pulso */
+        .btn-wsp {
+            background: var(--sea-red);
             color: white;
             border: none;
             width: 100%;
             padding: 18px;
-            border-radius: 8px;
+            border-radius: 12px;
+            font-size: 1.1rem;
             font-weight: bold;
-            font-size: 16px;
             cursor: pointer;
             text-transform: uppercase;
-            margin-top: 15px;
+            margin-top: 10px;
             transition: 0.3s;
+            animation: pulse 2s infinite;
         }
 
-        .btn-action:hover {
-            background-color: #d6413c;
-            transform: translateY(-2px);
+        .btn-wsp:hover {
+            background: #d6413c;
+            animation: none;
+            transform: scale(1.02);
         }
 
-        /* Mobile Adjustments */
+        /* Responsivo */
         @media (max-width: 768px) {
-            .info-section { padding-right: 0; text-align: center; margin-bottom: 40px; }
-            .info-section h1 { font-size: 32px; }
-            .form-card { max-width: 100%; }
+            .info-section h1 { font-size: 2.5rem; text-align: center; }
+            .info-section { text-align: center; }
+            .content-container { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+
     <div class="main-wrapper">
-        <div class="info-section">
-            <img src="https://seagroupperu.com/wp-content/uploads/2023/logo-sea-group.png" alt="Sea Group Logo" class="logo">
-            <h1>Logística de importación eficiente</h1>
-            <p>Simplificamos tus operaciones aduaneras y de carga internacional. Empieza hoy tu próxima importación con expertos.</p>
-            <img src="https://seagroupperu.com/wp-content/uploads/2023/bg-hero-1.png" alt="Carga" style="width: 100%; border-radius: 10px;">
-        </div>
+        <div class="content-container">
+            <div class="info-section">
+                <img src="https://seagroupperu.com/wp-content/uploads/2023/logo-sea-group.png" alt="Sea Group" class="logo">
+                <h1>Importar nunca fue tan fácil</h1>
+                <p>Expertos en agenciamiento de aduana y carga internacional. Tu mercancía en manos seguras, desde cualquier parte del mundo.</p>
+            </div>
 
-        <div class="form-card">
-            <h2>¡Solicita tu Cotización!</h2>
-            
-            <form id="waSeaForm">
-                <div class="form-group">
-                    <label>Nombre para contactarnos *</label>
-                    <input type="text" id="nombre" placeholder="Ej: Wilmer Anton">
-                </div>
+            <div class="form-card">
+                <h2>Cotiza tu Importación</h2>
+                <form id="waSeaForm">
+                    <div class="form-group">
+                        <label>Nombre y Apellido</label>
+                        <input type="text" id="nombre" placeholder="Ej: Wilmer Anton">
+                    </div>
 
-                <div class="form-group">
-                    <label>Número de WhatsApp *</label>
-                    <input type="tel" id="telefono" placeholder="Ej: 999999999">
-                </div>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="tel" id="telefono" placeholder="Ej: 999 999 999">
+                    </div>
 
-                <label style="font-size: 14px; font-weight: bold; display: block; margin-bottom: 10px;">Servicio requerido:</label>
-                
-                <label class="custom-option">
-                    <input type="radio" name="servicio" value="Carga internacional" checked> Agenciamiento de Carga
-                </label>
-                <label class="custom-option">
-                    <input type="radio" name="servicio" value="Aduanas"> Agenciamiento de Aduana
-                </label>
+                    <label style="font-weight:bold; font-size: 0.9rem; margin-bottom: 10px; display:block;">Servicio:</label>
+                    <label class="check-option">
+                        <input type="radio" name="servicio" value="Carga Internacional" checked> Carga Internacional
+                    </label>
+                    <label class="check-option">
+                        <input type="radio" name="servicio" value="Aduanas"> Agenciamiento de Aduana
+                    </label>
 
-                <label style="font-size: 14px; font-weight: bold; display: block; margin-bottom: 10px; margin-top: 15px;">Perfil de importador:</label>
-                
-                <label class="custom-option">
-                    <input type="checkbox" id="checkImportado"> Ya he realizado importaciones antes
-                </label>
+                    <label style="font-weight:bold; font-size: 0.9rem; margin-top: 15px; margin-bottom: 10px; display:block;">¿Ya ha importado antes?</label>
+                    <label class="check-option">
+                        <input type="checkbox" id="importadorPrevio"> Sí, tengo experiencia importando
+                    </label>
 
-                <button type="submit" class="btn-action" id="btnWsp">¡Quiero mi cotización!</button>
-            </form>
+                    <button type="submit" class="btn-wsp" id="btnEnviar">¡Quiero Asesoría!</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
         document.getElementById('waSeaForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('btnWsp');
+            const btn = document.getElementById('btnEnviar');
             
-            const nombre = document.getElementById('nombre').value.trim();
-            const tel = document.getElementById('telefono').value.trim();
+            const nombre = document.getElementById('nombre').value.trim() || "Interesado";
+            const tel = document.getElementById('telefono').value.trim() || "No especificado";
             const servicio = document.querySelector('input[name="servicio"]:checked').value;
-            const yaImporto = document.getElementById('checkImportado').checked ? "Sí" : "No";
+            const exp = document.getElementById('importadorPrevio').checked ? "Con experiencia" : "Sin experiencia";
 
-            let text = "";
-            if (!nombre && !tel) {
-                text = "Hola Sea Group Peru, estoy interesado en recibir asesoría para importar de manera eficiente.";
-            } else {
-                text = `*SOLICITUD DE COTIZACIÓN*%0A%0A` +
-                       `*Nombre:* ${nombre || "Interesado"}%0A` +
-                       `*Teléfono:* ${tel || "No especificado"}%0A` +
-                       `*Servicio:* ${servicio}%0A` +
-                       `*Importador previo:* ${yaImporto}`;
-            }
+            const mensaje = `*NUEVA COTIZACIÓN SEA GROUP*%0A%0A*Cliente:* ${nombre}%0A*WhatsApp:* ${tel}%0A*Servicio:* ${servicio}%0A*Perfil:* ${exp}`;
 
-            btn.innerText = "Abriendo WhatsApp...";
+            btn.innerText = "Conectando...";
             setTimeout(() => {
-                window.open(`https://wa.me/51934290174?text=${text}`, '_blank');
-                btn.innerText = "¡Quiero mi cotización!";
+                window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
+                btn.innerText = "¡Quiero Asesoría!";
             }, 800);
         });
     </script>
+
 </body>
 </html>
