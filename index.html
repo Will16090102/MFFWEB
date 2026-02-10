@@ -3,267 +3,771 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru | Soluciones Logísticas y Aduaneras</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Sea Group Peru | Operador Logístico Integral</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         :root {
             --sea-blue: #00509d;
+            --sea-dark: #002a52;
             --sea-red: #e31e24;
-            --sea-red-hover: #c4191f;
-            --dark: #1a1a1a;
-            --light-bg: #f8f9fa;
+            --sea-red-dark: #b01217;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: #f8fafc;
+        }
 
-        /* --- HERO SECTION CON CUESTIONARIO --- */
-        .hero-section {
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 15px 5%;
+        }
+
+        .nav-logo img { height: 50px; transition: 0.3s; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: white; font-weight: 600; font-size: 0.9rem; transition: 0.3s; position: relative; }
+        .navbar.scrolled .nav-links a { color: var(--sea-dark); }
+        
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--sea-red); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO SECTION --- */
+        .hero {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(0, 80, 157, 0.85) 0%, rgba(0, 0, 0, 0.7) 100%), 
-                        url('https://images.unsplash.com/photo-1524522173746-f628baad3644?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            padding: 80px 20px;
+            overflow: hidden;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        /* Efecto Ken Burns (Zoom lento) */
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1494412519320-aa613dfb7738?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            z-index: -2;
+            animation: kenBurns 20s infinite alternate;
+        }
 
-        .brand-info { color: white; }
-        .logo-main { width: 220px; margin-bottom: 30px; }
-        .brand-info h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
-        .brand-info p { font-size: 1.2rem; opacity: 0.9; max-width: 500px; }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 42, 82, 0.9) 0%, rgba(0, 80, 157, 0.7) 100%);
+            z-index: -1;
+        }
 
-        /* Tarjeta del Formulario */
-        .quote-card { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-        .quote-card h2 { color: var(--sea-blue); font-size: 1.8rem; margin-bottom: 25px; border-left: 5px solid var(--sea-red); padding-left: 15px; }
+        .container {
+            width: 90%; max-width: 1200px;
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px;
+            align-items: center;
+            padding-top: 60px;
+        }
 
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: #666; margin-bottom: 5px; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        .hero-content h1 {
+            font-size: 3.8rem;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            border-left: 4px solid var(--sea-red);
+            padding-left: 20px;
+        }
+
+        /* --- FORMULARIO PREMIUM --- */
+        .quote-panel {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--sea-blue), var(--sea-red));
+        }
+
+        .quote-panel h3 {
+            color: var(--sea-dark);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .form-grid { display: grid; gap: 15px; }
         
-        .services-grid { display: grid; gap: 10px; margin-top: 10px; }
-        .service-option { cursor: pointer; }
-        .service-option input { display: none; }
-        .service-box { display: block; padding: 12px; background: #f1f1f1; border-radius: 8px; text-align: center; font-weight: 600; transition: 0.3s; font-size: 0.9rem; }
-        .service-option input:checked + .service-box { background: var(--sea-blue); color: white; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            color: var(--sea-blue);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            background: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+        }
 
-        .btn-submit { width: 100%; background: var(--sea-red); color: white; border: none; padding: 18px; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .btn-submit:hover { background: var(--sea-red-hover); transform: translateY(-2px); }
+        .input-field:focus {
+            border-color: var(--sea-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 80, 157, 0.1);
+        }
 
-        /* --- SECCIÓN BENEFICIOS (Estilo tuautoenflota) --- */
-        .benefits { padding: 80px 20px; text-align: center; background: white; }
-        .section-title { font-size: 2.5rem; color: var(--sea-blue); margin-bottom: 50px; font-weight: 800; }
-        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .benefit-item { padding: 30px; border-radius: 15px; transition: 0.3s; border: 1px solid #eee; }
-        .benefit-item:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.1); transform: translateY(-10px); }
-        .benefit-item i { font-size: 3rem; color: var(--sea-red); margin-bottom: 20px; }
-        .benefit-item h3 { margin-bottom: 15px; color: var(--sea-blue); }
+        /* Radio Cards para Servicios */
+        .service-selection { display: grid; gap: 10px; margin-top: 10px; }
+        .radio-card { position: relative; cursor: pointer; }
+        .radio-card input { display: none; }
+        
+        .card-content {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        
+        .radio-card input:checked + .card-content {
+            border-color: var(--sea-red);
+            background: #fff5f5;
+        }
+        
+        .radio-card input:checked + .card-content i { color: var(--sea-red); }
+        
+        .submit-btn {
+            background: var(--sea-red);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover { background: var(--sea-red-dark); transform: translateY(-3px); }
+        .submit-btn:hover::after { left: 100%; }
 
-        /* --- SECCIÓN SERVICIOS DETALLADOS --- */
-        .detailed-services { padding: 80px 20px; background: var(--light-bg); }
-        .service-row { display: flex; align-items: center; gap: 50px; max-width: 1100px; margin: 0 auto 60px; }
-        .service-row:nth-child(even) { flex-direction: row-reverse; }
-        .service-img { flex: 1; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .service-img img { width: 100%; display: block; }
-        .service-info { flex: 1; }
-        .service-info h3 { font-size: 2rem; color: var(--sea-blue); margin-bottom: 20px; }
-        .service-info ul { list-style: none; }
-        .service-info ul li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .service-info ul li::before { content: "✓"; color: var(--sea-red); font-weight: bold; }
+        /* --- STATS COUNTER --- */
+        .stats-section {
+            background: white;
+            padding: 50px 0;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .stats-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 30px; text-align: center;
+        }
+        
+        .stat-item h2 { font-size: 2.5rem; color: var(--sea-blue); font-weight: 800; }
+        .stat-item p { color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
 
-        /* --- TESTIMONIOS CON LOGOS LATERALES --- */
-        .testimonials { padding: 80px 20px; background: white; }
-        .testimonial-card { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 40px; background: var(--light-bg); padding: 40px; border-radius: 20px; border-right: 8px solid var(--sea-red); }
-        .client-logo { width: 150px; height: 150px; object-fit: contain; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .testimonial-text { flex: 1; }
-        .testimonial-text p { font-style: italic; font-size: 1.1rem; margin-bottom: 15px; }
-        .testimonial-text h4 { color: var(--sea-blue); font-weight: 700; }
+        /* --- BENEFICIOS --- */
+        .section-padding { padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--sea-dark); margin-bottom: 15px; font-weight: 800; }
+        .section-header .divider { width: 80px; height: 4px; background: var(--sea-red); margin: 0 auto; border-radius: 2px; }
+
+        .benefits-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+            max-width: 1200px; margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 80, 157, 0.15);
+            border-bottom-color: var(--sea-red);
+        }
+
+        .icon-box {
+            width: 70px; height: 70px;
+            background: rgba(0, 80, 157, 0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .benefit-card:hover .icon-box { background: var(--sea-blue); }
+        .benefit-card i { font-size: 1.8rem; color: var(--sea-blue); transition: 0.3s; }
+        .benefit-card:hover i { color: white; }
+
+        /* --- TIMELINE (PROCESO) --- */
+        .timeline-section { background: #f1f5f9; position: relative; }
+        .timeline-container { max-width: 1000px; margin: 0 auto; position: relative; }
+        
+        .timeline-line {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 100%; background: #cbd5e1;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 50px; position: relative; z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+        
+        .timeline-content {
+            width: 45%; background: white; padding: 30px;
+            border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 40px; height: 40px; background: var(--sea-red);
+            border-radius: 50%; border: 4px solid white;
+            box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.2);
+        }
+
+        /* --- SERVICIOS CON IMÁGENES --- */
+        .service-full {
+            display: flex; flex-wrap: wrap;
+            max-width: 1200px; margin: 0 auto 80px;
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .service-full:nth-child(even) { flex-direction: row-reverse; }
+
+        .service-img {
+            flex: 1 1 400px;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: 0.5s;
+        }
+        .service-full:hover .service-img img { transform: scale(1.1); }
+
+        .service-text {
+            flex: 1 1 400px;
+            padding: 50px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        .service-text h3 { color: var(--sea-blue); font-size: 2rem; margin-bottom: 20px; }
+        .check-list li {
+            list-style: none; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+            color: var(--text-light);
+        }
+        .check-list i { color: var(--sea-red); }
+
+        /* --- TESTIMONIOS --- */
+        .testimonials { background: var(--sea-dark); color: white; }
+        .testimonials h2 { color: white; }
+        
+        .testi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+
+        .testi-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .testi-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
+        
+        .client-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .client-logo-box {
+            width: 60px; height: 60px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; padding: 5px;
+        }
+        .client-logo-box img { max-width: 100%; max-height: 100%; }
+        
+        .stars { color: #facc15; margin-bottom: 15px; font-size: 0.9rem; }
 
         /* --- FOOTER --- */
-        footer { background: var(--dark); color: white; padding: 60px 20px 20px; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-bottom { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; opacity: 0.7; }
+        footer { background: #0b1120; color: #cbd5e1; padding-top: 80px; }
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px; padding-bottom: 50px; border-bottom: 1px solid #1e293b;
+        }
 
-        @media (max-width: 900px) {
-            .container, .service-row, .testimonial-card { grid-template-columns: 1fr; flex-direction: column; text-align: center; }
-            .brand-info h1 { font-size: 2.5rem; }
-            .service-row:nth-child(even) { flex-direction: column; }
+        .footer-col h4 { color: white; margin-bottom: 25px; font-size: 1.2rem; }
+        .footer-links li { list-style: none; margin-bottom: 12px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: var(--sea-red); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-btn {
+            width: 40px; height: 40px; border-radius: 50%; background: #1e293b;
+            display: flex; align-items: center; justify-content: center;
+            color: white; transition: 0.3s; text-decoration: none;
+        }
+        .social-btn:hover { background: var(--sea-red); transform: rotate(360deg); }
+
+        /* Animations Keyframes */
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content p { margin: 0 auto 30px; border-left: none; border-bottom: 4px solid var(--sea-red); padding-bottom: 15px; }
+            .timeline-line { left: 20px; }
+            .timeline-item { flex-direction: row !important; justify-content: flex-start; gap: 20px; }
+            .timeline-content { width: calc(100% - 60px); }
+            .timeline-dot { min-width: 40px; margin-left: 0; }
+            .nav-links { display: none; } /* En versión móvil simple ocultamos links por ahora */
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero-section">
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <img src="logo.png" alt="Sea Group" style="filter: brightness(0) invert(1);">
+        </div>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Cómo funciona</a>
+            <a href="#testimonios">Clientes</a>
+            <a href="#contacto" style="background: var(--sea-red); padding: 10px 20px; border-radius: 5px;">Cotizar</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="inicio">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
         <div class="container">
-            <div class="brand-info">
-                <img src="logo.png" alt="Sea Group Peru" class="logo-main">
-                <h1>Tu carga, nuestra prioridad.</h1>
-                <p>Especialistas en Agenciamiento de Aduana y Carga Internacional con más de 10 años optimizando el comercio exterior peruano.</p>
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <h1>Tu carga,<br>nuestra prioridad.</h1>
+                <p>Optimizamos tu cadena de suministro con asesoría experta y soluciones logísticas a medida. Agenciamiento de aduana y carga internacional en un solo lugar.</p>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; @media(min-width: 968px){justify-content: start;}">
+                    <div style="display: flex; align-items: center; gap: 10px; color: white;">
+                        <i class="fas fa-check-circle" style="color: var(--sea-red);"></i> Atención 24/7
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: white;">
+                        <i class="fas fa-check-circle" style="color: var(--sea-red);"></i> Certificados
+                    </div>
+                </div>
             </div>
 
-            <div class="quote-card">
-                <h2>Cotiza ahora</h2>
-                <form id="waForm">
-                    <div class="form-group">
-                        <label>Nombre y Apellido</label>
-                        <input type="text" id="nombre" placeholder="Ej: Wilmer Anton" required>
-                    </div>
-                    <div class="form-group">
-                        <label>WhatsApp Corporativo</label>
-                        <input type="tel" id="telefono" placeholder="999 999 999" required>
-                    </div>
-                    <div class="form-group">
-                        <label>¿Has importado antes?</label>
-                        <select id="experiencia" required>
-                            <option value="" disabled selected>Selecciona una opción</option>
-                            <option value="Si, soy importador frecuente">Si, soy importador frecuente</option>
-                            <option value="He importado pocas veces">He importado pocas veces</option>
-                            <option value="No, es mi primera vez">No, es mi primera vez</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Servicio de interés</label>
-                        <div class="services-grid">
-                            <label class="service-option">
+            <div class="quote-panel" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                <h3>Cotiza tu Importación</h3>
+                <form id="seaForm">
+                    <div class="form-grid">
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="nombre" class="input-field" placeholder="Nombre completo" required>
+                        </div>
+                        
+                        <div class="input-wrapper">
+                            <i class="fab fa-whatsapp"></i>
+                            <input type="tel" id="telefono" class="input-field" placeholder="WhatsApp Corporativo" required>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <i class="fas fa-globe-americas"></i>
+                            <select id="experiencia" class="input-field" style="appearance: none; cursor: pointer;" required>
+                                <option value="" disabled selected>¿Has importado antes?</option>
+                                <option value="Si, soy importador frecuente">Sí, soy importador frecuente</option>
+                                <option value="He importado pocas veces">He importado pocas veces</option>
+                                <option value="No, es mi primera vez">No, es mi primera vez</option>
+                            </select>
+                            <i class="fas fa-chevron-down" style="left: auto; right: 15px; font-size: 0.8rem; pointer-events: none;"></i>
+                        </div>
+
+                        <div class="service-selection">
+                            <label class="radio-card">
                                 <input type="radio" name="servicio" value="Aduanas" checked>
-                                <span class="service-box">Aduanas</span>
+                                <div class="card-content">
+                                    <i class="fas fa-file-contract"></i>
+                                    <span>Agenciamiento de Aduana</span>
+                                </div>
                             </label>
-                            <label class="service-option">
+                            <label class="radio-card">
                                 <input type="radio" name="servicio" value="Carga Internacional">
-                                <span class="service-box">Carga Internacional</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="radio" name="servicio" value="Asesoría Integral">
-                                <span class="service-box">Asesoría Integral</span>
+                                <div class="card-content">
+                                    <i class="fas fa-ship"></i>
+                                    <span>Carga Internacional</span>
+                                </div>
                             </label>
                         </div>
                     </div>
-                    <button type="submit" class="btn-submit" id="btnEnviar">Solicitar Cotización</button>
+                    <button type="submit" class="submit-btn" id="btnEnviar">Solicitar Cotización <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
                 </form>
             </div>
         </div>
     </section>
 
-    <section class="benefits">
-        <h2 class="section-title">¿Por qué confiar en nosotros?</h2>
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item" data-aos="zoom-in">
+                <h2 class="counter" data-target="12">0</h2>
+                <p>Años de Experiencia</p>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                <h2 class="counter" data-target="500">0</h2>
+                <p>Clientes Satisfechos</p>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                <h2 class="counter" data-target="3500">0</h2>
+                <p>Embarques al Año</p>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                <h2 class="counter" data-target="100">0</h2>
+                <p>% Efectividad</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-padding" id="beneficios">
+        <div class="section-header" data-aos="fade-up">
+            <h2>¿Por qué elegir Sea Group?</h2>
+            <div class="divider"></div>
+        </div>
         <div class="benefits-grid">
-            <div class="benefit-item">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Seguridad Total</h3>
-                <p>Garantizamos la integridad de su mercancía con procesos certificados y seguimiento constante.</p>
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                <h3>Seguridad Garantizada</h3>
+                <p>Tus operaciones respaldadas por un equipo experto y certificaciones que aseguran la cadena logística.</p>
             </div>
-            <div class="benefit-item">
-                <i class="fas fa-bolt"></i>
-                <h3>Rapidez en Levante</h3>
-                <p>Expertos en gestión aduanera para lograr el levante de su carga en tiempo récord.</p>
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                <h3>Agilidad Operativa</h3>
+                <p>Reducimos los tiempos de desaduanaje y tránsito para que tengas tu mercadería cuando la necesitas.</p>
             </div>
-            <div class="benefit-item">
-                <i class="fas fa-hand-holding-usd"></i>
-                <h3>Costos Optimizados</h3>
-                <p>Alianzas estratégicas con navieras para ofrecerte las mejores tarifas del mercado.</p>
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                <h3>Reducción de Costos</h3>
+                <p>Analizamos cada ruta para ofrecerte la opción más rentable sin sacrificar calidad ni seguridad.</p>
             </div>
         </div>
     </section>
 
-    <section class="detailed-services">
-        <div class="service-row">
+    <section class="section-padding" style="background: #fff;" id="servicios">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Nuestros Servicios</h2>
+            <div class="divider"></div>
+        </div>
+
+        <div class="service-full" data-aos="fade-left">
             <div class="service-img">
-                <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?q=80&w=2070&auto=format&fit=crop" alt="Aduanas">
+                <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=2070&auto=format&fit=crop" alt="Aduanas">
             </div>
-            <div class="service-info">
+            <div class="service-text">
                 <h3>Agenciamiento de Aduana</h3>
-                <p>Gestionamos todos los regímenes aduaneros con precisión legal:</p>
-                <ul>
-                    <li>Importación para el consumo.</li>
-                    <li>Exportación definitiva.</li>
-                    <li>Admisión temporal.</li>
-                    <li>Asesoría legal y técnica aduanera.</li>
+                <p style="margin-bottom: 20px;">Nuestra experiencia nos permite anticiparnos a cualquier inconveniente, asegurando un despacho fluido y sin sobrecostos.</p>
+                <ul class="check-list">
+                    <li><i class="fas fa-check"></i> Importación para el consumo</li>
+                    <li><i class="fas fa-check"></i> Exportación definitiva</li>
+                    <li><i class="fas fa-check"></i> Regímenes temporales</li>
+                    <li><i class="fas fa-check"></i> Asesoría legal aduanera</li>
                 </ul>
             </div>
         </div>
 
-        <div class="service-row">
+        <div class="service-full" data-aos="fade-right">
             <div class="service-img">
-                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop" alt="Carga">
+                <img src="https://images.unsplash.com/photo-1493946740644-2d8a1f1a6aff?q=80&w=2090&auto=format&fit=crop" alt="Carga">
             </div>
-            <div class="service-info">
+            <div class="service-text">
                 <h3>Carga Internacional</h3>
-                <p>Conectamos tu negocio con el mundo a través de rutas eficientes:</p>
-                <ul>
-                    <li>Flete Marítimo (FCL / LCL).</li>
-                    <li>Flete Aéreo express.</li>
-                    <li>Transporte Terrestre nacional e internacional.</li>
-                    <li>Seguro de carga internacional.</li>
+                <p style="margin-bottom: 20px;">Coordinamos el transporte de tu mercancía desde cualquier parte del mundo hasta tu almacén, con seguimiento en tiempo real.</p>
+                <ul class="check-list">
+                    <li><i class="fas fa-check"></i> Flete Marítimo (FCL y LCL)</li>
+                    <li><i class="fas fa-check"></i> Flete Aéreo Express</li>
+                    <li><i class="fas fa-check"></i> Transporte Terrestre Internacional</li>
+                    <li><i class="fas fa-check"></i> Seguro de Carga</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <section class="testimonials">
-        <h2 class="section-title" style="text-align: center;">Lo que dicen nuestros clientes</h2>
-        <div class="testimonial-card">
-            <img src="logos/cliente1.png" alt="Logo Cliente" class="client-logo">
-            <div class="testimonial-text">
-                <p>"Sea Group se convirtió en nuestro socio estratégico. Gracias a su asesoría en aduanas logramos reducir costos operativos en un 20% este año."</p>
-                <h4>— Gerente de Logística, Importadora Textil</h4>
+    <section class="section-padding timeline-section" id="proceso">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Proceso de Importación</h2>
+            <p>Simplificamos la logística en 4 pasos</p>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <h3 style="color:var(--sea-blue);">01. Cotización y Planificación</h3>
+                    <p>Analizamos tu carga y definimos la mejor ruta y régimen aduanero.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-content">
+                    <h3 style="color:var(--sea-blue);">02. Embarque</h3>
+                    <p>Coordinamos el recojo en origen y el transporte internacional.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <h3 style="color:var(--sea-blue);">03. Gestión Aduanera</h3>
+                    <p>Preparamos la numeración y tramitamos el levante antes de la llegada.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-content">
+                    <h3 style="color:var(--sea-blue);">04. Entrega Final</h3>
+                    <p>Transportamos la carga liberada hasta la puerta de tu almacén.</p>
+                </div>
+                <div class="timeline-dot"></div>
             </div>
         </div>
-        <br>
-        <div class="testimonial-card" style="border-right: none; border-left: 8px solid var(--sea-red); flex-direction: row-reverse;">
-            <img src="logos/cliente2.png" alt="Logo Cliente" class="client-logo">
-            <div class="testimonial-text" style="text-align: right;">
-                <p>"La rapidez de respuesta y el seguimiento real de nuestra carga es lo que más valoramos. Muy profesionales en todo el proceso."</p>
-                <h4>— Director Comercial, Agroexportadora del Sur</h4>
+    </section>
+
+    <section class="section-padding testimonials" id="testimonios">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Confianza que Transciende</h2>
+            <div class="divider" style="background:white;"></div>
+        </div>
+
+        <div class="testi-grid">
+            <div class="testi-card" data-aos="zoom-in" data-aos-delay="0">
+                <div class="client-header">
+                    <div class="client-logo-box">
+                        <img src="logos/cliente1.png" alt="Logo"> </div>
+                    <div>
+                        <h4>Gerente Logístico</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"La capacidad de respuesta de Sea Group ante imprevistos en aduanas es impresionante. Nos han ahorrado mucho dinero en almacenajes."</p>
+            </div>
+
+            <div class="testi-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="client-header">
+                    <div class="client-logo-box">
+                        <img src="logos/cliente2.png" alt="Logo">
+                    </div>
+                    <div>
+                        <h4>Jefe de Compras</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Desde que trabajamos con ellos, nuestros tiempos de entrega mejoraron un 30%. Comunicación transparente en todo momento."</p>
+            </div>
+
+            <div class="testi-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="client-header">
+                    <div class="client-logo-box">
+                        <img src="logos/cliente3.png" alt="Logo">
+                    </div>
+                    <div>
+                        <h4>Director Comercial</h4>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Excelente manejo de carga consolidada. Nos asesoraron desde nuestra primera importación hasta ahora que traemos contenedores."</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-content">
-            <div>
-                <img src="logo.png" alt="Sea Group" style="width: 150px; filter: brightness(0) invert(1);">
-                <p style="margin-top:20px; opacity: 0.7;">Soluciones logísticas integrales para el comercio exterior.</p>
-            </div>
-            <div>
-                <h4>Contacto</h4>
-                <p><i class="fas fa-phone"></i> +51 934 290 174</p>
-                <p><i class="fas fa-envelope"></i> comercial@seagroupperu.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Callao, Lima - Perú</p>
-            </div>
-            <div>
-                <h4>Siguenos</h4>
-                <div style="display:flex; gap:15px; font-size: 1.5rem; margin-top:10px;">
-                    <i class="fab fa-facebook"></i>
-                    <i class="fab fa-linkedin"></i>
-                    <i class="fab fa-instagram"></i>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="logo.png" alt="Sea Group" style="width: 180px; filter: brightness(0) invert(1); margin-bottom: 20px;">
+                <p>Tu socio estratégico en comercio exterior. Conectamos negocios peruanos con el mundo.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
+            
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Nosotros</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Cotizar</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <ul class="footer-links">
+                    <li><i class="fas fa-phone" style="margin-right:10px; color:var(--sea-red);"></i> +51 934 290 174</li>
+                    <li><i class="fas fa-envelope" style="margin-right:10px; color:var(--sea-red);"></i> comercial@seagroupperu.com</li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right:10px; color:var(--sea-red);"></i> Callao, Lima - Perú</li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-bottom">
+        <div style="text-align: center; padding: 20px; font-size: 0.9rem; border-top: 1px solid #1e293b;">
             &copy; 2024 Sea Group Peru. Todos los derechos reservados.
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.getElementById('waForm').addEventListener('submit', function(e) {
+        // Inicializar Animaciones
+        AOS.init({
+            once: true, // La animación solo ocurre una vez
+            offset: 100, // Comienza un poco antes
+            duration: 800,
+        });
+
+        // Navbar Sticky Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // WhatsApp Form Logic
+        document.getElementById('seaForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            const originalText = btn.innerHTML;
+            
             const nombre = document.getElementById('nombre').value;
             const tel = document.getElementById('telefono').value;
             const exp = document.getElementById('experiencia').value;
             const servicio = document.querySelector('input[name="servicio"]:checked').value;
 
-            const mensaje = `*NUEVA COTIZACIÓN WEB*%0A` +
-                            `*Cliente:* ${nombre}%0A` +
-                            `*WhatsApp:* ${tel}%0A` +
-                            `*Experiencia:* ${exp}%0A` +
-                            `*Servicio:* ${servicio}`;
+            const mensaje = `*HOLA SEA GROUP, SOLICITO COTIZACIÓN*%0A%0A` +
+                            `👤 *Cliente:* ${nombre}%0A` +
+                            `📱 *WhatsApp:* ${tel}%0A` +
+                            `🚢 *Experiencia:* ${exp}%0A` +
+                            `📦 *Interés:* ${servicio}%0A%0A` +
+                            `_Vengo de la Landing Page._`;
 
-            window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
+            
+            setTimeout(() => {
+                window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
+                btn.innerHTML = originalText;
+            }, 1000);
+        });
+
+        // Counter Animation Logic
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; // The lower the slower
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (target > 10 ? "+" : ""); // Add + sign
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Trigger counters when Stats section is in view
+        let counted = false;
+        const statsSection = document.querySelector('.stats-section');
+        
+        window.addEventListener('scroll', () => {
+            if(!counted && window.scrollY > statsSection.offsetTop - 500) {
+                animateCounters();
+                counted = true;
+            }
         });
     </script>
 </body>
