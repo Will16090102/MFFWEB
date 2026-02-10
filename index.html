@@ -41,6 +41,7 @@
             align-items: center;
             z-index: 1000;
             transition: 0.4s ease;
+            background: rgba(0, 42, 82, 0.95);
         }
 
         .navbar.scrolled {
@@ -49,7 +50,16 @@
             padding: 15px 5%;
         }
 
-        .nav-logo img { height: 50px; transition: 0.3s; }
+        .nav-logo img { 
+            height: 50px; 
+            transition: 0.3s; 
+            filter: brightness(0) invert(1);
+        }
+        
+        .navbar.scrolled .nav-logo img {
+            filter: none;
+        }
+        
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { text-decoration: none; color: white; font-weight: 600; font-size: 0.9rem; transition: 0.3s; position: relative; }
         .navbar.scrolled .nav-links a { color: var(--sea-dark); }
@@ -58,6 +68,20 @@
             content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--sea-red); transition: 0.3s;
         }
         .nav-links a:hover::after { width: 100%; }
+
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .navbar.scrolled .menu-toggle {
+            color: var(--sea-dark);
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -69,13 +93,12 @@
             overflow: hidden;
         }
 
-        /* Efecto Ken Burns (Zoom lento) */
+        /* Imagen de fondo local */
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1494412519320-aa613dfb7738?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            background: url('fondo.png') no-repeat center center/cover;
             z-index: -2;
-            animation: kenBurns 20s infinite alternate;
         }
 
         .hero-overlay {
@@ -107,6 +130,14 @@
             margin-bottom: 30px;
             border-left: 4px solid var(--sea-red);
             padding-left: 20px;
+        }
+
+        /* Estilo para los checkboxes del hero */
+        .hero-checkboxes {
+            display: flex; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            justify-content: center;
         }
 
         /* --- FORMULARIO PREMIUM --- */
@@ -159,7 +190,7 @@
             box-shadow: 0 0 0 4px rgba(0, 80, 157, 0.1);
         }
 
-        /* Radio Cards para Servicios */
+        /* Radio Cards para Servicios - AHORA SON 3 OPCIONES */
         .service-selection { display: grid; gap: 10px; margin-top: 10px; }
         .radio-card { position: relative; cursor: pointer; }
         .radio-card input { display: none; }
@@ -331,34 +362,97 @@
         }
         .check-list i { color: var(--sea-red); }
 
-        /* --- TESTIMONIOS --- */
-        .testimonials { background: var(--sea-dark); color: white; }
-        .testimonials h2 { color: white; }
-        
-        .testi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; max-width: 1200px; margin: 0 auto;
+        /* --- NUEVA SECCIÓN DE TESTIMONIOS CON LOGOS LATERALES --- */
+        .testimonials-section {
+            background: white;
+            padding: 100px 5%;
         }
 
-        .testi-card {
-            background: rgba(255,255,255,0.05);
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            gap: 50px;
+            position: relative;
+        }
+
+        .testimonial-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .testimonial-logo {
+            flex: 0 0 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            min-height: 200px;
+        }
+
+        .testimonial-logo img {
+            max-width: 100%;
+            max-height: 140px;
+            object-fit: contain;
+        }
+
+        .testimonial-content {
+            flex: 1;
             padding: 40px;
+            background: var(--sea-dark);
+            color: white;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
-        .testi-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); }
-        
-        .client-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .client-logo-box {
-            width: 60px; height: 60px; background: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; padding: 5px;
+        .testimonial-content::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
         }
-        .client-logo-box img { max-width: 100%; max-height: 100%; }
-        
-        .stars { color: #facc15; margin-bottom: 15px; font-size: 0.9rem; }
+
+        .testimonial-item:nth-child(odd) .testimonial-content::before {
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 15px 20px 15px 0;
+            border-color: transparent var(--sea-dark) transparent transparent;
+        }
+
+        .testimonial-item:nth-child(even) .testimonial-content::before {
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 15px 0 15px 20px;
+            border-color: transparent transparent transparent var(--sea-dark);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--sea-red);
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
 
         /* --- FOOTER --- */
         footer { background: #0b1120; color: #cbd5e1; padding-top: 80px; }
@@ -381,12 +475,6 @@
         }
         .social-btn:hover { background: var(--sea-red); transform: rotate(360deg); }
 
-        /* Animations Keyframes */
-        @keyframes kenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
         /* Responsive */
         @media (max-width: 968px) {
             .container { grid-template-columns: 1fr; text-align: center; }
@@ -395,8 +483,66 @@
             .timeline-item { flex-direction: row !important; justify-content: flex-start; gap: 20px; }
             .timeline-content { width: calc(100% - 60px); }
             .timeline-dot { min-width: 40px; margin-left: 0; }
-            .nav-links { display: none; } /* En versión móvil simple ocultamos links por ahora */
             .stats-grid { grid-template-columns: 1fr 1fr; }
+            
+            /* Menú responsive */
+            .menu-toggle { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+                transition: 0.5s ease;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links a {
+                color: var(--sea-dark);
+                font-size: 1.2rem;
+                padding: 15px 0;
+            }
+            
+            .navbar.scrolled .nav-links {
+                background: white;
+            }
+            
+            .hero-checkboxes {
+                justify-content: center !important;
+            }
+
+            /* Testimonios responsive */
+            .testimonial-item {
+                flex-direction: column !important;
+                gap: 30px;
+                margin-bottom: 60px;
+            }
+
+            .testimonial-logo {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .testimonial-content::before {
+                display: none;
+            }
+        }
+
+        @media (min-width: 968px) {
+            .hero-checkboxes {
+                justify-content: start;
+            }
         }
     </style>
 </head>
@@ -404,14 +550,17 @@
 
     <nav class="navbar" id="navbar">
         <div class="nav-logo">
-            <img src="logo.png" alt="Sea Group" style="filter: brightness(0) invert(1);">
+            <img src="logo.png" alt="Sea Group">
         </div>
-        <div class="nav-links">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links" id="navLinks">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
             <a href="#proceso">Cómo funciona</a>
             <a href="#testimonios">Clientes</a>
-            <a href="#contacto" style="background: var(--sea-red); padding: 10px 20px; border-radius: 5px;">Cotizar</a>
+            <a href="#contacto" class="cta-nav">Cotizar</a>
         </div>
     </nav>
 
@@ -421,15 +570,18 @@
         
         <div class="container">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-                <h1>Tu carga,<br>nuestra prioridad.</h1>
-                <p>Optimizamos tu cadena de suministro con asesoría experta y soluciones logísticas a medida. Agenciamiento de aduana y carga internacional en un solo lugar.</p>
+                <h1>Equipo de profesionales con gran experiencia en comercio exterior</h1>
+                <p>Líderes integrando la cadena logística internacional. Brindamos infinitas soluciones con rapidez y eficacia.</p>
                 
-                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; @media(min-width: 968px){justify-content: start;}">
+                <div class="hero-checkboxes">
                     <div style="display: flex; align-items: center; gap: 10px; color: white;">
                         <i class="fas fa-check-circle" style="color: var(--sea-red);"></i> Atención 24/7
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; color: white;">
                         <i class="fas fa-check-circle" style="color: var(--sea-red);"></i> Certificados
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: white;">
+                        <i class="fas fa-check-circle" style="color: var(--sea-red);"></i> Seguridad Garantizada
                     </div>
                 </div>
             </div>
@@ -460,18 +612,26 @@
                         </div>
 
                         <div class="service-selection">
+                            <!-- CORREGIDO: AHORA SON 3 SERVICIOS -->
                             <label class="radio-card">
-                                <input type="radio" name="servicio" value="Aduanas" checked>
+                                <input type="radio" name="servicio" value="Agenciamiento de Carga Internacional" checked>
+                                <div class="card-content">
+                                    <i class="fas fa-ship"></i>
+                                    <span>Agenciamiento de Carga Internacional</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="servicio" value="Agenciamiento de Aduana">
                                 <div class="card-content">
                                     <i class="fas fa-file-contract"></i>
                                     <span>Agenciamiento de Aduana</span>
                                 </div>
                             </label>
                             <label class="radio-card">
-                                <input type="radio" name="servicio" value="Carga Internacional">
+                                <input type="radio" name="servicio" value="Asesoría en Importación y Exportación">
                                 <div class="card-content">
-                                    <i class="fas fa-ship"></i>
-                                    <span>Carga Internacional</span>
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Asesoría en Importación y Exportación</span>
                                 </div>
                             </label>
                         </div>
@@ -507,6 +667,9 @@
         <div class="section-header" data-aos="fade-up">
             <h2>¿Por qué elegir Sea Group?</h2>
             <div class="divider"></div>
+            <p style="max-width: 800px; margin: 20px auto 0; color: var(--text-light); font-size: 1.1rem;">
+                La experiencia de nuestro equipo y las herramientas tecnológicas que manejamos nos respaldan para ofrecer los mejores servicios con CALIDAD, EFICIENCIA y AGILIDAD.
+            </p>
         </div>
         <div class="benefits-grid">
             <div class="benefit-card" data-aos="fade-up" data-aos-delay="0">
@@ -531,6 +694,9 @@
         <div class="section-header" data-aos="fade-up">
             <h2>Nuestros Servicios</h2>
             <div class="divider"></div>
+            <p style="max-width: 800px; margin: 20px auto 0; color: var(--text-light); font-size: 1.1rem;">
+                Brindamos los servicios que necesitas con calidad, eficiencia y agilidad
+            </p>
         </div>
 
         <div class="service-full" data-aos="fade-left">
@@ -539,7 +705,7 @@
             </div>
             <div class="service-text">
                 <h3>Agenciamiento de Aduana</h3>
-                <p style="margin-bottom: 20px;">Nuestra experiencia nos permite anticiparnos a cualquier inconveniente, asegurando un despacho fluido y sin sobrecostos.</p>
+                <p style="margin-bottom: 20px;">Atendemos operaciones de todos los regímenes aduaneros para todas las industrias con atención directa en los principales puertos de nuestro litoral.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Importación para el consumo</li>
                     <li><i class="fas fa-check"></i> Exportación definitiva</li>
@@ -554,13 +720,29 @@
                 <img src="https://images.unsplash.com/photo-1493946740644-2d8a1f1a6aff?q=80&w=2090&auto=format&fit=crop" alt="Carga">
             </div>
             <div class="service-text">
-                <h3>Carga Internacional</h3>
-                <p style="margin-bottom: 20px;">Coordinamos el transporte de tu mercancía desde cualquier parte del mundo hasta tu almacén, con seguimiento en tiempo real.</p>
+                <h3>Agenciamiento de Carga Internacional</h3>
+                <p style="margin-bottom: 20px;">Soluciones logísticas para el transporte marítimo y aéreo de mercancías, dependiendo de sus necesidades y de la naturaleza de los diferentes embarques que maneje.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Flete Marítimo (FCL y LCL)</li>
                     <li><i class="fas fa-check"></i> Flete Aéreo Express</li>
                     <li><i class="fas fa-check"></i> Transporte Terrestre Internacional</li>
                     <li><i class="fas fa-check"></i> Seguro de Carga</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-full" data-aos="fade-left">
+            <div class="service-img">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2070&auto=format&fit=crop" alt="Asesoría">
+            </div>
+            <div class="service-text">
+                <h3>Asesoría en Importación y Exportación</h3>
+                <p style="margin-bottom: 20px;">Brindamos consultoría a empresas de diversas industrias con el objetivo de mantenerlos informados sobre los principales cambios del sector y optimizar sus operaciones.</p>
+                <ul class="check-list">
+                    <li><i class="fas fa-check"></i> Planificación estratégica</li>
+                    <li><i class="fas fa-check"></i> Análisis de rentabilidad</li>
+                    <li><i class="fas fa-check"></i> Cumplimiento normativo</li>
+                    <li><i class="fas fa-check"></i> Optimización de costos</li>
                 </ul>
             </div>
         </div>
@@ -609,54 +791,72 @@
         </div>
     </section>
 
-    <section class="section-padding testimonials" id="testimonios">
+    <!-- NUEVA SECCIÓN DE TESTIMONIOS CON LOGOS LATERALES -->
+    <section class="testimonials-section" id="testimonios">
         <div class="section-header" data-aos="fade-up">
             <h2>Confianza que Transciende</h2>
-            <div class="divider" style="background:white;"></div>
+            <div class="divider"></div>
+            <p style="max-width: 800px; margin: 20px auto 0; color: var(--text-light); font-size: 1.1rem;">
+                Empresas que confían en nuestro trabajo y experiencia
+            </p>
         </div>
 
-        <div class="testi-grid">
-            <div class="testi-card" data-aos="zoom-in" data-aos-delay="0">
-                <div class="client-header">
-                    <div class="client-logo-box">
-                        <img src="logos/cliente1.png" alt="Logo"> </div>
-                    <div>
-                        <h4>Gerente Logístico</h4>
-                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
+        <div class="testimonial-container">
+            <!-- Testimonio 1 -->
+            <div class="testimonial-item" data-aos="fade-up">
+                <div class="testimonial-logo">
+                    <img src="logos/bionnovation.png" alt="Bionnovation">
                 </div>
-                <p>"La capacidad de respuesta de Sea Group ante imprevistos en aduanas es impresionante. Nos han ahorrado mucho dinero en almacenajes."</p>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        "Destaco la cordialidad y el compromiso con el que nos ayudan en nuestras importaciones. Su experiencia en el sector biomédico ha sido fundamental para nuestro crecimiento."
+                    </div>
+                    <div class="testimonial-author">BIONNOVATION - Biomedical</div>
+                </div>
             </div>
 
-            <div class="testi-card" data-aos="zoom-in" data-aos-delay="100">
-                <div class="client-header">
-                    <div class="client-logo-box">
-                        <img src="logos/cliente2.png" alt="Logo">
-                    </div>
-                    <div>
-                        <h4>Jefe de Compras</h4>
-                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
+            <!-- Testimonio 2 -->
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-logo">
+                    <img src="logos/reset.png" alt="Reset">
                 </div>
-                <p>"Desde que trabajamos con ellos, nuestros tiempos de entrega mejoraron un 30%. Comunicación transparente en todo momento."</p>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        "Los gerentes se involucran en la gestión, eso me da seguridad, me parece que el mismo dueño se haga cargo dice mucho de su compromiso con los clientes."
+                    </div>
+                    <div class="testimonial-author">RESET - Electrónica e Ingeniería S.M.I.</div>
+                </div>
             </div>
 
-            <div class="testi-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="client-header">
-                    <div class="client-logo-box">
-                        <img src="logos/cliente3.png" alt="Logo">
-                    </div>
-                    <div>
-                        <h4>Director Comercial</h4>
-                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
+            <!-- Testimonio 3 -->
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-logo">
+                    <img src="logos/orvpimpor.png" alt="Orvpimpor Biotechnology">
                 </div>
-                <p>"Excelente manejo de carga consolidada. Nos asesoraron desde nuestra primera importación hasta ahora que traemos contenedores."</p>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        "Creo que son especialistas en Comercio Exterior, por eso nuestra carga sale más rápido. Su conocimiento de los trámites aduaneros ha optimizado nuestros procesos significativamente."
+                    </div>
+                    <div class="testimonial-author">ORVPIMPOR BIOTECHNOLOGY</div>
+                </div>
+            </div>
+
+            <!-- Testimonio 4 -->
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-logo">
+                    <img src="logos/tmc.png" alt="TMC">
+                </div>
+                <div class="testimonial-content">
+                    <div class="testimonial-text">
+                        "Lo mejor que tienen, es la experiencia, eso hace qué puedan resolver rápidamente los temas en aduana y poder absolver con conocimiento, los temas que puedan ocurrir, tienen mucha experiencia y en este negocio eso ayuda enormemente."
+                    </div>
+                    <div class="testimonial-author">TMC INNOVACIÓN - Carreras de Metal</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <footer id="contacto">
         <div class="footer-grid">
             <div class="footer-col">
                 <img src="logo.png" alt="Sea Group" style="width: 180px; filter: brightness(0) invert(1); margin-bottom: 20px;">
@@ -671,19 +871,23 @@
             <div class="footer-col">
                 <h4>Enlaces Rápidos</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Cotizar</a></li>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#proceso">Cómo funciona</a></li>
+                    <li><a href="#testimonios">Clientes</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt" style="margin-right:10px; color:var(--sea-red);"></i> Av. Patriotas 431, San Miguel, Lima - Perú</li>
+                    <li><i class="fas fa-phone" style="margin-right:10px; color:var(--sea-red);"></i> +51 912 460 850</li>
+                    <li><i class="fas fa-phone" style="margin-right:10px; color:var(--sea-red);"></i> +51 927 843 508</li>
                     <li><i class="fas fa-phone" style="margin-right:10px; color:var(--sea-red);"></i> +51 934 290 174</li>
-                    <li><i class="fas fa-envelope" style="margin-right:10px; color:var(--sea-red);"></i> comercial@seagroupperu.com</li>
-                    <li><i class="fas fa-map-marker-alt" style="margin-right:10px; color:var(--sea-red);"></i> Callao, Lima - Perú</li>
+                    <li><i class="fas fa-envelope" style="margin-right:10px; color:var(--sea-red);"></i> jcastillo@seagroupperu.com</li>
+                    <li><i class="fas fa-envelope" style="margin-right:10px; color:var(--sea-red);"></i> scastillo@seagroupperu.com</li>
                 </ul>
             </div>
         </div>
@@ -696,8 +900,8 @@
     <script>
         // Inicializar Animaciones
         AOS.init({
-            once: true, // La animación solo ocurre una vez
-            offset: 100, // Comienza un poco antes
+            once: true,
+            offset: 100,
             duration: 800,
         });
 
@@ -709,6 +913,34 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
+        });
+
+        // Menú hamburguesa para móviles
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            
+            // Cambiar ícono
+            const icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
         });
 
         // WhatsApp Form Logic
@@ -726,7 +958,7 @@
                             `👤 *Cliente:* ${nombre}%0A` +
                             `📱 *WhatsApp:* ${tel}%0A` +
                             `🚢 *Experiencia:* ${exp}%0A` +
-                            `📦 *Interés:* ${servicio}%0A%0A` +
+                            `📦 *Servicio solicitado:* ${servicio}%0A%0A` +
                             `_Vengo de la Landing Page._`;
 
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
@@ -734,12 +966,16 @@
             setTimeout(() => {
                 window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
                 btn.innerHTML = originalText;
+                // Resetear formulario
+                document.getElementById('seaForm').reset();
+                // Restablecer primera opción como seleccionada
+                document.querySelector('input[name="servicio"]').checked = true;
             }, 1000);
         });
 
         // Counter Animation Logic
         const counters = document.querySelectorAll('.counter');
-        const speed = 200; // The lower the slower
+        const speed = 200;
 
         const animateCounters = () => {
             counters.forEach(counter => {
@@ -752,7 +988,7 @@
                         counter.innerText = Math.ceil(count + inc);
                         setTimeout(updateCount, 20);
                     } else {
-                        counter.innerText = target + (target > 10 ? "+" : ""); // Add + sign
+                        counter.innerText = target + (target === 100 ? '%' : '+');
                     }
                 };
                 updateCount();
@@ -769,6 +1005,12 @@
                 counted = true;
             }
         });
+        
+        // También activar contadores si la sección ya es visible al cargar
+        if (window.scrollY > statsSection.offsetTop - 500) {
+            animateCounters();
+            counted = true;
+        }
     </script>
 </body>
 </html>
