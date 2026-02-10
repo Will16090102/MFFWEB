@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sea Group Peru | Soluciones Logísticas Integrales</title>
+    <title>Sea Group Peru | Landing Page</title>
     <style>
         :root {
-            --sea-blue-dark: #002444; /* Azul profundo de Sea Group */
-            --sea-blue-light: #004a8d;
-            --sea-red: #e31e24; /* Rojo corporativo */
-            --sea-red-hover: #b3161b;
-            --text-dark: #333;
-            --glass-bg: rgba(255, 255, 255, 0.96);
+            --sea-blue: #00509d; /* El azul real de la web */
+            --sea-red: #e31e24;  /* El rojo de los botones y logo */
+            --sea-red-hover: #c4191f;
+            --bg-light: #f4f7f9;
+            --text-main: #1a1a1a;
         }
 
         * {
@@ -22,12 +21,11 @@
 
         body, html {
             height: 100%;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: #000;
         }
 
-        /* Hero Background con Overlay */
+        /* --- HERO SECTION --- */
         .hero-section {
             position: relative;
             min-height: 100vh;
@@ -35,294 +33,255 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=2070'); /* Imagen de respaldo profesional */
+            /* Usamos una imagen de fondo de alta calidad de logística */
+            background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover;
             background-position: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .hero-section::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(0, 36, 68, 0.9) 0%, rgba(0, 0, 0, 0.5) 100%);
+            /* Overlay con el azul de la marca para coherencia visual */
+            background: linear-gradient(135deg, rgba(0, 80, 157, 0.85) 0%, rgba(0, 0, 0, 0.6) 100%);
             z-index: 1;
         }
 
         .container {
             position: relative;
             z-index: 2;
-            max-width: 1200px;
+            max-width: 1100px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
             align-items: center;
         }
 
-        /* Branding Side */
-        .hero-text {
-            animation: fadeIn 1s ease-out;
+        /* --- LADO IZQUIERDO: TEXTO --- */
+        .brand-info {
+            color: white;
         }
 
-        .logo {
-            width: 220px;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
-        }
-
-        .hero-text h1 {
-            font-size: 3.8rem;
-            line-height: 1.1;
-            font-weight: 800;
-            margin-bottom: 24px;
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .hero-text p {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            opacity: 0.9;
-            max-width: 550px;
-            border-left: 4px solid var(--sea-red);
-            padding-left: 20px;
-        }
-
-        /* Form Card */
-        .form-card {
-            background: var(--glass-bg);
-            border-radius: 28px;
-            padding: 40px;
-            color: var(--text-dark);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .form-header {
+        .logo-main {
+            width: 240px;
             margin-bottom: 30px;
+        }
+
+        .brand-info h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .brand-info p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            max-width: 480px;
+            opacity: 0.9;
+        }
+
+        /* --- LADO DERECHO: FORMULARIO --- */
+        .quote-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .quote-card h2 {
+            color: var(--sea-blue);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .form-header h2 {
-            font-size: 1.7rem;
-            color: var(--sea-blue-dark);
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        .form-header .line {
+        .quote-card h2::after {
+            content: "";
             height: 3px;
-            background: linear-gradient(to right, var(--sea-red), transparent);
-            flex-grow: 1;
-            border-radius: 2px;
+            background: var(--sea-red);
+            flex: 1;
         }
 
-        .input-group {
-            margin-bottom: 18px;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .input-group label {
+        .form-group label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 8px;
-            color: #666;
+            color: #555;
+            margin-bottom: 5px;
         }
 
-        .input-group input, .input-group select {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #eef2f6;
-            border-radius: 12px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8fafc;
+            transition: 0.3s;
         }
 
-        .input-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: var(--sea-blue-light);
-            background: #fff;
-            box-shadow: 0 0 0 4px rgba(0, 74, 141, 0.1);
+            border-color: var(--sea-blue);
+            box-shadow: 0 0 0 3px rgba(0, 80, 157, 0.1);
         }
 
-        /* Radio buttons styling */
-        .service-options {
+        /* --- SERVICIOS (Cards pequeñas) --- */
+        .services-grid {
             display: grid;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .service-item {
-            position: relative;
+        .service-option {
             cursor: pointer;
         }
 
-        .service-item input {
+        .service-option input {
             display: none;
         }
 
-        .service-label {
+        .service-box {
             display: block;
-            padding: 12px 15px;
-            background: #f8fafc;
-            border: 2px solid #eef2f6;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #444;
             transition: 0.2s;
-            color: #4a5568;
         }
 
-        .service-item input:checked + .service-label {
-            border-color: var(--sea-red);
-            background: #fff5f5;
-            color: var(--sea-red);
+        .service-option input:checked + .service-box {
+            background: var(--sea-blue);
+            color: white;
+            border-color: var(--sea-blue);
         }
 
-        /* Submit Button */
-        .submit-btn {
+        /* --- BOTÓN --- */
+        .btn-submit {
             width: 100%;
-            padding: 18px;
             background: var(--sea-red);
             color: white;
             border: none;
-            border-radius: 15px;
+            padding: 16px;
+            border-radius: 10px;
             font-size: 1.1rem;
-            font-weight: 800;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(227, 30, 36, 0.3);
         }
 
-        .submit-btn:hover {
+        .btn-submit:hover {
             background: var(--sea-red-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(227, 30, 36, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(227, 30, 36, 0.4);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-            .hero-text h1 { font-size: 2.8rem; }
-            .hero-text p { margin: 0 auto; border-left: none; border-bottom: 4px solid var(--sea-red); padding-bottom: 15px; }
-            .logo { margin-bottom: 20px; }
-        }
-
-        @media (max-width: 480px) {
-            .form-card { padding: 30px 20px; }
-            .hero-text h1 { font-size: 2.2rem; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; text-align: center; }
+            .brand-info h1 { font-size: 2.5rem; }
+            .brand-info p { margin: 0 auto; }
+            .quote-card h2::after { display: none; }
         }
     </style>
 </head>
 <body>
 
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-text">
-            <img src="logo.png" alt="Sea Group Logo" class="logo">
-            <h1>Tu carga,<br>nuestra prioridad.</h1>
-            <p>Especialistas en agenciamiento de aduana y carga internacional. Brindamos soluciones logísticas eficientes y personalizadas para el comercio exterior peruano.</p>
-        </div>
-
-        <div class="form-card">
-            <div class="form-header">
-                <h2>Cotiza ahora</h2>
-                <div class="line"></div>
+    <section class="hero-section">
+        <div class="container">
+            <div class="brand-info">
+                <img src="logo.png" alt="Sea Group Peru" class="logo-main">
+                <h1>Tu carga,<br>nuestra prioridad.</h1>
+                <p>Optimizamos tu cadena de suministro con asesoría experta y soluciones logísticas a medida. 🚢</p>
             </div>
 
-            <form id="cotizadorForm">
-                <div class="input-group">
-                    <label>Nombre y Apellido</label>
-                    <input type="text" id="nombre" placeholder="Nombre completo" required>
-                </div>
-
-                <div class="input-group">
-                    <label>WhatsApp Corporativo</label>
-                    <input type="tel" id="telefono" placeholder="Ej: 999 999 999" required>
-                </div>
-
-                <div class="input-group">
-                    <label>¿Has importado anteriormente?</label>
-                    <select id="experiencia" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="Sí, soy importador recurrente">Sí, soy importador recurrente</option>
-                        <option value="He importado algunas veces">He importado algunas veces</option>
-                        <option value="No, sería mi primera vez">No, sería mi primera vez</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Servicio Requerido</label>
-                    <div class="service-options">
-                        <label class="service-item">
-                            <input type="radio" name="servicio" value="Agenciamiento de Aduana" checked>
-                            <span class="service-label">Agenciamiento de Aduana</span>
-                        </label>
-                        <label class="service-item">
-                            <input type="radio" name="servicio" value="Agenciamiento de Carga Internacional">
-                            <span class="service-label">Carga Internacional</span>
-                        </label>
-                        <label class="service-item">
-                            <input type="radio" name="servicio" value="Asesoría Integral">
-                            <span class="service-label">Asesoría Importación/Exportación</span>
-                        </label>
+            <div class="quote-card">
+                <h2>Cotiza ahora</h2>
+                <form id="seaForm">
+                    <div class="form-group">
+                        <label>Nombre y Apellido</label>
+                        <input type="text" id="nombre" placeholder="Ej: Wilmer Anton" required>
                     </div>
-                </div>
 
-                <button type="submit" class="submit-btn" id="btnEnviar">
-                    Solicitar Cotización
-                </button>
-            </form>
+                    <div class="form-group">
+                        <label>WhatsApp Corporativo</label>
+                        <input type="tel" id="telefono" placeholder="999 999 999" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Has importado anteriormente?</label>
+                        <select id="importador" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Si, soy importador frecuente">Sí, soy importador frecuente</option>
+                            <option value="He importado pocas veces">He importado pocas veces</option>
+                            <option value="No, sería mi primera vez">No, sería mi primera vez</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Selecciona un servicio</label>
+                        <div class="services-grid">
+                            <label class="service-option">
+                                <input type="radio" name="servicio" value="Agenciamiento de Aduana" checked>
+                                <span class="service-box">Agenciamiento de Aduana</span>
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="servicio" value="Agenciamiento de Carga Internacional">
+                                <span class="service-box">Carga Internacional</span>
+                            </label>
+                            <label class="service-option">
+                                <input type="radio" name="servicio" value="Asesoría en Imp/Exp">
+                                <span class="service-box">Asesoría en Importación y Exportación</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btnEnviar">Solicitar Cotización</button>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script>
-    document.getElementById('cotizadorForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const btn = document.getElementById('btnEnviar');
-        const nombre = document.getElementById('nombre').value;
-        const tel = document.getElementById('telefono').value;
-        const exp = document.getElementById('experiencia').value;
-        const servicio = document.querySelector('input[name="servicio"]:checked').value;
+    <script>
+        document.getElementById('seaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const tel = document.getElementById('telefono').value;
+            const exp = document.getElementById('importador').value;
+            const servicio = document.querySelector('input[name="servicio"]:checked').value;
 
-        // Construcción del mensaje para WhatsApp
-        const mensaje = `*SEA GROUP PERU - SOLICITUD DE COTIZACIÓN*%0A%0A` +
-                        `*Nombre:* ${nombre}%0A` +
-                        `*WhatsApp:* ${tel}%0A` +
-                        `*Experiencia:* ${exp}%0A` +
-                        `*Servicio:* ${servicio}%0A%0A` +
-                        `_Enviado desde el nuevo portal web._`;
+            const mensaje = `*NUEVA SOLICITUD DE COTIZACIÓN*%0A` +
+                            `*Cliente:* ${nombre}%0A` +
+                            `*WhatsApp:* ${tel}%0A` +
+                            `*Experiencia:* ${exp}%0A` +
+                            `*Servicio:* ${servicio}`;
 
-        btn.style.opacity = '0.7';
-        btn.innerText = "Conectando...";
+            const btn = document.getElementById('btnEnviar');
+            btn.innerText = "Abriendo WhatsApp...";
 
-        setTimeout(() => {
-            // Reemplaza con tu número de WhatsApp real
-            window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
-            btn.style.opacity = '1';
-            btn.innerText = "Solicitar Cotización";
-        }, 800);
-    });
-</script>
+            setTimeout(() => {
+                window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
+                btn.innerText = "Solicitar Cotización";
+            }, 800);
+        });
+    </script>
 
 </body>
 </html>
