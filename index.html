@@ -11,105 +11,195 @@
 
     <style>
         :root {
-            --sea-blue: #00509d;
-            --sea-dark: #002a52;
-            --sea-red: #e31e24;
-            --sea-red-dark: #b01217;
+            --primary-blue: #00509d;
+            --dark-blue: #002a52;
+            --accent-red: #e31e24;
+            --accent-red-dark: #b01217;
+            --light-blue: #4dabf7;
+            --sky-blue: #74c0fc;
+            --navy-blue: #1e3a8a;
             --text-dark: #1e293b;
             --text-light: #64748b;
             --white: #ffffff;
-            --input-bg: #f8fafc;
+            --off-white: #f8fafc;
+            --light-gray: #e2e8f0;
+            --input-bg: #f1f5f9;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--text-dark);
             overflow-x: hidden;
-            background-color: #f8fafc;
+            background-color: var(--off-white);
         }
 
-        /* --- NAVBAR --- */
-        .navbar {
+        /* --- NUEVO HEADER --- */
+        .header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            transition: 0.4s ease;
-            background: rgba(0, 42, 82, 0.95); /* Fondo oscuro inicial para legibilidad */
+            transition: all 0.3s ease;
         }
 
-        .navbar.scrolled {
+        .header.scrolled {
             background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            padding: 15px 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-logo img { 
-            height: 50px; 
-            transition: 0.3s; 
-            filter: brightness(0) invert(1); /* Logo blanco inicialmente */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
         }
-        
-        .navbar.scrolled .nav-logo img {
-            filter: none; /* Logo original al hacer scroll */
-        }
-        
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { text-decoration: none; color: white; font-weight: 600; font-size: 0.9rem; transition: 0.3s; position: relative; }
-        .navbar.scrolled .nav-links a { color: var(--sea-dark); }
-        
-        .nav-links a::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--sea-red); transition: 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
 
-        .cta-nav {
-            background: var(--sea-red);
-            padding: 10px 20px !important;
+        .logo-main {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-sub {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-red);
+            letter-spacing: 2px;
+            margin-top: -2px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red));
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blog-btn {
+            background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-dark) 100%);
+            color: white;
+            padding: 8px 20px;
             border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(227, 30, 36, 0.2);
         }
-        .cta-nav:hover { background: var(--sea-red-dark); }
-        .navbar.scrolled .cta-nav { color: white !important; }
+
+        .blog-btn:hover {
+            background: linear-gradient(135deg, var(--accent-red-dark) 0%, #a01015 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(227, 30, 36, 0.3);
+        }
 
         /* Mobile Menu */
-        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-        .navbar.scrolled .menu-toggle { color: var(--sea-dark); }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark-blue);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .menu-toggle:hover {
+            color: var(--accent-red);
+        }
 
         /* --- HERO SECTION --- */
         .hero {
             position: relative;
-            min-height: 100vh; /* Asegura altura completa */
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding: 100px 0; /* Espacio para navbar y footer en móviles */
+            padding-top: 120px;
+            padding-bottom: 100px;
         }
 
         .hero-bg {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('fondo.png') no-repeat center center/cover; /* Tu imagen de fondo */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 32, 91, 0.85) 0%, rgba(30, 58, 138, 0.8) 100%), 
+                        url('fondo.png') no-repeat center center/cover;
             z-index: -2;
             animation: kenBurns 20s infinite alternate;
         }
 
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
         .hero-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 42, 82, 0.92) 0%, rgba(0, 80, 157, 0.75) 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 42, 82, 0.92) 0%, 
+                rgba(0, 80, 157, 0.75) 50%, 
+                rgba(30, 58, 138, 0.8) 100%);
             z-index: -1;
         }
 
         .container {
-            width: 90%; max-width: 1200px;
-            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px;
+            width: 90%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
             align-items: center;
         }
 
@@ -119,63 +209,110 @@
             line-height: 1.1;
             margin-bottom: 20px;
             font-weight: 800;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content h1 span {
+            color: var(--sky-blue);
+            text-shadow: 0 2px 5px rgba(116, 192, 252, 0.3);
         }
 
         .hero-content p {
             font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 30px;
-            border-left: 4px solid var(--sea-red);
+            border-left: 4px solid var(--accent-red);
             padding-left: 20px;
+            line-height: 1.6;
         }
 
         .hero-badges {
-            display: flex; gap: 20px; flex-wrap: wrap;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
-        .badge {
-            display: flex; align-items: center; gap: 10px; color: white; font-weight: 500;
-        }
-        .badge i { color: var(--sea-red); font-size: 1.2rem; }
 
-        /* --- FORMULARIO PREMIUM (CARD STYLE) --- */
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge i {
+            color: var(--sky-blue);
+            font-size: 1.2rem;
+        }
+
+        /* --- FORMULARIO PREMIUM --- */
         .quote-panel {
-            background: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             padding: 35px;
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4); /* Sombra fuerte para profundidad */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* Línea superior decorativa */
         .quote-panel::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
-            background: linear-gradient(90deg, var(--sea-blue), var(--sea-red));
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red), var(--light-blue));
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .quote-panel h3 {
-            color: var(--sea-dark);
+            color: var(--dark-blue);
             font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 25px;
             text-align: center;
+            position: relative;
         }
 
-        .form-grid { display: flex; flex-direction: column; gap: 15px; }
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-        /* Inputs */
-        .input-wrapper { position: relative; }
+        .input-wrapper {
+            position: relative;
+        }
+
         .input-wrapper i.icon-field {
-            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-            color: var(--sea-blue); font-size: 1.1rem; transition: 0.3s;
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
-        
+
         .input-field {
             width: 100%;
-            padding: 15px 15px 15px 50px; /* Espacio para icono */
-            border: 2px solid #e2e8f0;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid var(--light-gray);
             border-radius: 10px;
             font-size: 0.95rem;
             color: var(--text-dark);
@@ -188,44 +325,109 @@
 
         .input-field:focus {
             background: #fff;
-            border-color: var(--sea-blue);
+            border-color: var(--primary-blue);
             box-shadow: 0 0 0 4px rgba(0, 80, 157, 0.1);
         }
-        .input-wrapper:focus-within i.icon-field { color: var(--sea-red); }
 
-        /* Selectores de Servicio (Tarjetas) */
-        .service-selection { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-        
-        .radio-label { cursor: pointer; position: relative; width: 100%; }
-        .radio-label input { display: none; }
-
-        .service-card {
-            display: flex; align-items: center; gap: 15px;
-            padding: 15px 18px;
-            background: #fff;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+        .input-wrapper:focus-within i.icon-field {
+            color: var(--accent-red);
         }
 
-        .service-icon { font-size: 1.3rem; color: var(--text-light); transition: 0.3s; }
-        .service-text { font-weight: 600; color: var(--text-dark); font-size: 0.9rem; transition: 0.3s; }
-
-        /* Estado Seleccionado */
-        .radio-label input:checked + .service-card {
-            border-color: var(--sea-red);
-            background-color: #fff1f2; /* Rojo muy pálido */
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(227, 30, 36, 0.1);
+        /* BOTONES DE SERVICIO CIRCULARES COMPACTOS */
+        .service-selection {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
         }
-        .radio-label input:checked + .service-card .service-icon,
-        .radio-label input:checked + .service-card .service-text {
-            color: var(--sea-red);
+
+        .service-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .service-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 20px rgba(0, 80, 157, 0.1);
+        }
+
+        .service-btn.active {
+            border-color: var(--accent-red);
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.15);
+        }
+
+        .service-btn i {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .service-btn.active i {
+            color: var(--accent-red);
+            transform: scale(1.1);
+        }
+
+        .service-btn span {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.1;
+            transition: 0.3s;
+        }
+
+        .service-btn.active span {
+            color: var(--accent-red);
+        }
+
+        /* Indicador de selección */
+        .service-btn::after {
+            content: '✓';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+        }
+
+        .service-btn.active::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .service-btn input {
+            display: none;
         }
 
         /* Botón Submit */
         .submit-btn {
-            background: linear-gradient(135deg, var(--sea-red) 0%, #c4191f 100%);
+            background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-dark) 100%);
             color: white;
             border: none;
             width: 100%;
@@ -238,136 +440,660 @@
             transition: all 0.3s;
             margin-top: 15px;
             box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
-            display: flex; justify-content: center; align-items: center; gap: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(227, 30, 36, 0.4);
+            background: linear-gradient(135deg, var(--accent-red-dark) 0%, #a01015 100%);
         }
 
-        /* --- SECCIONES RESTANTES (Stats, Benefits, etc) --- */
+        /* --- SECCIÓN DE LOGOS DE CLIENTES --- */
+        .clients-section {
+            background: white;
+            padding: 60px 5%;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .clients-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .clients-header h3 {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .clients-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .client-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            background: var(--off-white);
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .client-logo-container:hover {
+            border-color: var(--accent-red);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .client-logo {
+            max-width: 160px;
+            max-height: 60px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .client-logo-container:hover .client-logo {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* --- SECCIÓN DE ESTADÍSTICAS --- */
         .stats-section {
-            background: white; padding: 50px 0; margin-top: -50px;
-            position: relative; z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 20px 20px 0 0;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
+            padding: 80px 5%;
+            position: relative;
+            color: white;
+            margin-top: 0;
         }
-        .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
-        .stat-item h2 { font-size: 2.5rem; color: var(--sea-blue); font-weight: 800; }
-        .stat-item p { color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; }
 
-        .section-padding { padding: 100px 5%; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--sea-dark); margin-bottom: 15px; font-weight: 800; }
-        .divider { width: 80px; height: 4px; background: var(--sea-red); margin: 0 auto; border-radius: 2px; }
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
 
-        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .stat-item h2 {
+            font-size: 2.8rem;
+            color: var(--sky-blue);
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-item p {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- SECCIÓN DE BENEFICIOS --- */
+        .section-padding {
+            padding: 100px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-red));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .benefit-card {
-            background: white; padding: 40px 30px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.4s; border-bottom: 4px solid transparent;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.4s;
+            border-bottom: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
-        .benefit-card:hover { transform: translateY(-15px); border-bottom-color: var(--sea-red); }
+
+        .benefit-card:hover {
+            transform: translateY(-15px);
+            border-bottom-color: var(--accent-red);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
         .icon-box {
-            width: 70px; height: 70px; background: rgba(0, 80, 157, 0.1); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 25px; transition: 0.3s;
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 80, 157, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: 0.3s;
         }
-        .benefit-card:hover .icon-box { background: var(--sea-blue); }
-        .benefit-card i { font-size: 1.8rem; color: var(--sea-blue); transition: 0.3s; }
-        .benefit-card:hover i { color: white; }
 
-        /* Servicios Detallados */
+        .benefit-card:hover .icon-box {
+            background: var(--primary-blue);
+        }
+
+        .benefit-card i {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            transition: 0.3s;
+        }
+
+        .benefit-card:hover i {
+            color: white;
+        }
+
+        /* --- SECCIÓN DE SERVICIOS DETALLADOS --- */
         .service-full {
-            display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto 80px;
-            background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
         }
-        .service-full:nth-child(even) { flex-direction: row-reverse; }
-        .service-img { flex: 1 1 400px; min-height: 300px; }
-        .service-img img { width: 100%; height: 100%; object-fit: cover; }
-        .service-text { flex: 1 1 400px; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-        .check-list li { list-style: none; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: var(--text-light); }
-        .check-list i { color: var(--sea-red); }
 
-        /* Timeline */
-        .timeline-section { background: #f1f5f9; }
-        .timeline-container { max-width: 1000px; margin: 0 auto; position: relative; }
-        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: #cbd5e1; }
-        .timeline-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; position: relative; z-index: 1; }
-        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-        .timeline-content { width: 45%; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .timeline-dot { width: 40px; height: 40px; background: var(--sea-red); border-radius: 50%; border: 4px solid white; box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.2); }
+        .service-full:nth-child(even) {
+            flex-direction: row-reverse;
+        }
 
-        /* Testimonios */
-        .testimonials-section { background: white; padding: 100px 5%; }
-        .testimonial-item { display: flex; align-items: center; margin-bottom: 80px; gap: 50px; }
-        .testimonial-item:nth-child(even) { flex-direction: row-reverse; }
-        .testimonial-logo { flex: 0 0 300px; padding: 30px; background: #f8fafc; border-radius: 15px; border: 1px solid #e2e8f0; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-        .testimonial-logo img { max-width: 100%; max-height: 140px; object-fit: contain; }
-        .testimonial-content { flex: 1; padding: 40px; background: var(--sea-dark); color: white; border-radius: 20px; position: relative; }
-        .testimonial-text { font-style: italic; margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6; }
-        .testimonial-author { font-weight: 700; color: var(--sea-red); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+        .service-img {
+            flex: 1 1 400px;
+            min-height: 300px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+        }
 
-        /* Footer */
-        footer { background: #0b1120; color: #cbd5e1; padding-top: 80px; }
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; padding-bottom: 50px; border-bottom: 1px solid #1e293b; }
-        .footer-links li { list-style: none; margin-bottom: 12px; }
-        .footer-links a { color: #cbd5e1; text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: var(--sea-red); padding-left: 5px; }
-        .social-btn { width: 40px; height: 40px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; margin-right: 10px; }
-        .social-btn:hover { background: var(--sea-red); }
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
 
-        @keyframes kenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        .service-text {
+            flex: 1 1 400px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-        /* Responsive */
+        .check-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .check-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .check-list i {
+            color: var(--accent-red);
+            font-size: 0.9rem;
+        }
+
+        /* --- SECCIÓN DE PROCESO (TIMELINE) --- */
+        .timeline-section {
+            background: var(--off-white);
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--light-gray);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.2);
+        }
+
+        /* --- SECCIÓN DE TESTIMONIOS --- */
+        .testimonials-section {
+            background: white;
+            padding: 100px 5%;
+        }
+
+        .testimonial-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            gap: 50px;
+        }
+
+        .testimonial-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .testimonial-logo {
+            flex: 0 0 300px;
+            padding: 30px;
+            background: var(--off-white);
+            border-radius: 15px;
+            border: 1px solid var(--light-gray);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-logo img {
+            max-width: 100%;
+            max-height: 140px;
+            object-fit: contain;
+        }
+
+        .testimonial-content {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--navy-blue) 100%);
+            color: white;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--sky-blue);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        /* --- NUEVO FOOTER --- */
+        .footer {
+            background: linear-gradient(135deg, #0b1120 0%, #1e293b 100%);
+            color: #cbd5e1;
+            padding-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            padding: 0 5% 50px;
+        }
+
+        .footer-info h3 {
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .footer-subtitle {
+            color: var(--accent-red);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        .contact-icon {
+            color: var(--sky-blue);
+            font-size: 1.1rem;
+            margin-top: 3px;
+            min-width: 20px;
+        }
+
+        .services-list {
+            list-style: none;
+        }
+
+        .services-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .services-list i {
+            color: var(--accent-red);
+            font-size: 0.9rem;
+        }
+
+        .services-list a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .services-list a:hover {
+            color: var(--sky-blue);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .credits {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .credits a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 968px) {
-            .container { grid-template-columns: 1fr; text-align: center; }
-            .hero-content p { margin: 0 auto 30px; border-left: none; border-bottom: 4px solid var(--sea-red); padding-bottom: 15px; }
-            .hero-badges { justify-content: center; }
+            .menu-toggle {
+                display: block;
+            }
             
-            .timeline-line { left: 20px; }
-            .timeline-item { flex-direction: row !important; justify-content: flex-start; gap: 20px; }
-            .timeline-content { width: calc(100% - 60px); }
+            .main-nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: 0.5s;
+                gap: 30px;
+            }
             
-            .testimonial-item { flex-direction: column !important; }
-            .testimonial-logo { width: 100%; max-width: 300px; margin: 0 auto; }
+            .main-nav.active {
+                left: 0;
+            }
             
-            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .nav-link {
+                font-size: 1.2rem;
+            }
             
-            .menu-toggle { display: block; }
-            .nav-links { position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px); background: white; flex-direction: column; align-items: center; padding-top: 40px; transition: 0.5s; }
-            .nav-links.active { left: 0; }
-            .nav-links a { color: var(--sea-dark); font-size: 1.2rem; }
+            .blog-btn {
+                margin-top: 20px;
+                font-size: 1rem;
+                padding: 12px 30px;
+            }
+            
+            .hero {
+                padding-top: 100px;
+            }
+            
+            .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content p {
+                margin: 0 auto 30px;
+                border-left: none;
+                border-bottom: 4px solid var(--accent-red);
+                padding-bottom: 15px;
+            }
+            
+            .hero-badges {
+                justify-content: center;
+            }
+            
+            .service-selection {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .service-btn {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .service-btn i {
+                font-size: 1.3rem;
+            }
+            
+            .service-btn span {
+                font-size: 0.65rem;
+            }
+            
+            .clients-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .client-logo-container {
+                height: 100px;
+                padding: 20px 15px;
+            }
+            
+            .client-logo {
+                max-width: 120px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+                justify-content: flex-start;
+                gap: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+            }
+            
+            .testimonial-item {
+                flex-direction: column !important;
+            }
+            
+            .testimonial-logo {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .service-full,
+            .service-full:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .service-img {
+                min-height: 250px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .service-selection {
+                gap: 8px;
+            }
+            
+            .service-btn {
+                width: 85px;
+                height: 85px;
+            }
+            
+            .service-btn span {
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar" id="navbar">
-        <div class="nav-logo">
-            <img src="logo.png" alt="Sea Group">
+    <!-- NUEVO HEADER -->
+    <header class="header" id="header">
+        <div class="logo-container">
+            <div class="logo-main">SEA</div>
+            <div class="logo-sub">LOGISTICS GROUP</div>
         </div>
+        
         <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <div class="nav-links" id="navLinks">
-            <a href="#inicio">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#proceso">Cómo funciona</a>
-            <a href="#testimonios">Clientes</a>
-            <a href="#contacto" class="cta-nav">Cotizar</a>
-        </div>
-    </nav>
+        
+        <nav class="main-nav" id="mainNav">
+            <a href="#inicio" class="nav-link">Inicio</a>
+            <a href="#servicios" class="nav-link">Servicios</a>
+            <a href="#nosotros" class="nav-link">Nosotros</a>
+            <a href="#contacto" class="nav-link">Contacto</a>
+            <a href="#blog" class="blog-btn">Blog</a>
+        </nav>
+    </header>
 
+    <!-- HERO SECTION -->
     <section class="hero" id="inicio">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         
         <div class="container">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
-                <h1>Equipo de profesionales con gran experiencia en comercio exterior</h1>
+                <h1>Equipo de <span>profesionales</span> con gran experiencia en comercio exterior</h1>
                 <p>Líderes integrando la cadena logística internacional. Brindamos infinitas soluciones con rapidez y eficacia.</p>
                 
                 <div class="hero-badges">
-                    <div class="badge"><i class="fas fa-check-circle"></i> Atención 24/7</div>
-                    <div class="badge"><i class="fas fa-check-circle"></i> Certificados</div>
-                    <div class="badge"><i class="fas fa-check-circle"></i> Seguridad Total</div>
+                    <div class="badge"><i class="fas fa-clock"></i> Atención 24/7</div>
+                    <div class="badge"><i class="fas fa-certificate"></i> Certificados Internacionales</div>
+                    <div class="badge"><i class="fas fa-shield-alt"></i> Seguridad Garantizada</div>
                 </div>
             </div>
 
@@ -397,28 +1123,22 @@
                         </div>
 
                         <div class="service-selection">
-                            <label class="radio-label">
+                            <label class="service-btn active" data-service="Agenciamiento de Carga Internacional">
                                 <input type="radio" name="servicio" value="Agenciamiento de Carga Internacional" checked>
-                                <div class="service-card">
-                                    <i class="fas fa-ship service-icon"></i>
-                                    <span class="service-text">Agenciamiento de Carga Internacional</span>
-                                </div>
+                                <i class="fas fa-ship"></i>
+                                <span>Carga Internacional</span>
                             </label>
                             
-                            <label class="radio-label">
+                            <label class="service-btn" data-service="Agenciamiento de Aduana">
                                 <input type="radio" name="servicio" value="Agenciamiento de Aduana">
-                                <div class="service-card">
-                                    <i class="fas fa-file-contract service-icon"></i>
-                                    <span class="service-text">Agenciamiento de Aduana</span>
-                                </div>
+                                <i class="fas fa-file-contract"></i>
+                                <span>Agenciamiento de Aduana</span>
                             </label>
 
-                            <label class="radio-label">
+                            <label class="service-btn" data-service="Asesoría en Importación y Exportación">
                                 <input type="radio" name="servicio" value="Asesoría en Importación y Exportación">
-                                <div class="service-card">
-                                    <i class="fas fa-chart-line service-icon"></i>
-                                    <span class="service-text">Asesoría en Importación y Exportación</span>
-                                </div>
+                                <i class="fas fa-chart-line"></i>
+                                <span>Asesoría Import/Export</span>
                             </label>
                         </div>
                     </div>
@@ -432,15 +1152,58 @@
         </div>
     </section>
 
-    <div class="stats-section">
+    <!-- SECCIÓN DE LOGOS DE CLIENTES -->
+    <section class="clients-section" data-aos="fade-up" data-aos-delay="200">
+        <div class="clients-header">
+            <h3>Empresas que Confían en Nuestra Experiencia</h3>
+            <p>Líderes de diversos sectores que han optimizado su cadena logística con Sea Group</p>
+        </div>
+        
+        <div class="clients-grid">
+            <div class="client-logo-container">
+                <img src="logos/bionnovation.png" alt="Bionnovation Biomedical" class="client-logo">
+                <div class="client-tooltip">Bionnovation Biomedical</div>
+            </div>
+            
+            <div class="client-logo-container">
+                <img src="logos/reset.png" alt="Reset Electrónica" class="client-logo">
+                <div class="client-tooltip">RESET - Electrónica</div>
+            </div>
+            
+            <div class="client-logo-container">
+                <img src="logos/orvpimpor.png" alt="ORVPIMPOR" class="client-logo">
+                <div class="client-tooltip">ORVPIMPOR BIOTECHNOLOGY</div>
+            </div>
+            
+            <!-- Agregar más logos según tengas -->
+            <div class="client-logo-container">
+                <img src="logos/cliente4.png" alt="Cliente Ejemplo" class="client-logo">
+                <div class="client-tooltip">Nombre Cliente 4</div>
+            </div>
+            
+            <div class="client-logo-container">
+                <img src="logos/cliente5.png" alt="Cliente Ejemplo" class="client-logo">
+                <div class="client-tooltip">Nombre Cliente 5</div>
+            </div>
+            
+            <div class="client-logo-container">
+                <img src="logos/cliente6.png" alt="Cliente Ejemplo" class="client-logo">
+                <div class="client-tooltip">Nombre Cliente 6</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="stats-section" data-aos="fade-up">
         <div class="stats-grid">
-            <div class="stat-item" data-aos="zoom-in"><h2 class="counter" data-target="12">0</h2><p>Años de Experiencia</p></div>
-            <div class="stat-item" data-aos="zoom-in" data-aos-delay="100"><h2 class="counter" data-target="500">0</h2><p>Clientes Satisfechos</p></div>
-            <div class="stat-item" data-aos="zoom-in" data-aos-delay="200"><h2 class="counter" data-target="3500">0</h2><p>Embarques al Año</p></div>
-            <div class="stat-item" data-aos="zoom-in" data-aos-delay="300"><h2 class="counter" data-target="100">0</h2><p>% Efectividad</p></div>
+            <div class="stat-item"><h2 class="counter" data-target="12">0</h2><p>Años de Experiencia</p></div>
+            <div class="stat-item"><h2 class="counter" data-target="500">0</h2><p>Clientes Satisfechos</p></div>
+            <div class="stat-item"><h2 class="counter" data-target="3500">0</h2><p>Embarques al Año</p></div>
+            <div class="stat-item"><h2 class="counter" data-target="100">0</h2><p>% Efectividad</p></div>
         </div>
     </div>
 
+    <!-- BENEFICIOS -->
     <section class="section-padding" id="beneficios">
         <div class="section-header" data-aos="fade-up">
             <h2>¿Por qué elegir Sea Group?</h2>
@@ -465,143 +1228,203 @@
         </div>
     </section>
 
-    <section class="section-padding" style="background: #fff;" id="servicios">
+    <!-- SERVICIOS -->
+    <section class="section-padding" style="background: var(--off-white);" id="servicios">
         <div class="section-header" data-aos="fade-up">
             <h2>Nuestros Servicios</h2>
             <div class="divider"></div>
         </div>
 
         <div class="service-full" data-aos="fade-left">
-            <div class="service-img"><img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=2070&auto=format&fit=crop" alt="Aduanas"></div>
+            <div class="service-img">
+                <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=2070&auto=format&fit=crop" alt="Aduanas">
+            </div>
             <div class="service-text">
-                <h3>Agenciamiento de Aduana</h3>
-                <p style="margin-bottom: 20px;">Atendemos operaciones de todos los regímenes aduaneros.</p>
+                <h3 style="color: var(--dark-blue); margin-bottom: 15px;">Agenciamiento de Aduana</h3>
+                <p style="margin-bottom: 20px; color: var(--text-light);">Atendemos operaciones de todos los regímenes aduaneros con la máxima eficiencia y cumplimiento normativo.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Importación para el consumo</li>
                     <li><i class="fas fa-check"></i> Exportación definitiva</li>
                     <li><i class="fas fa-check"></i> Regímenes temporales</li>
+                    <li><i class="fas fa-check"></i> Trámites especiales</li>
                 </ul>
             </div>
         </div>
 
         <div class="service-full" data-aos="fade-right">
-            <div class="service-img"><img src="https://images.unsplash.com/photo-1493946740644-2d8a1f1a6aff?q=80&w=2090&auto=format&fit=crop" alt="Carga"></div>
+            <div class="service-img">
+                <img src="https://images.unsplash.com/photo-1493946740644-2d8a1f1a6aff?q=80&w=2090&auto=format&fit=crop" alt="Carga">
+            </div>
             <div class="service-text">
-                <h3>Agenciamiento de Carga Internacional</h3>
-                <p style="margin-bottom: 20px;">Soluciones logísticas para el transporte marítimo y aéreo.</p>
+                <h3 style="color: var(--dark-blue); margin-bottom: 15px;">Agenciamiento de Carga Internacional</h3>
+                <p style="margin-bottom: 20px; color: var(--text-light);">Soluciones logísticas integrales para el transporte marítimo y aéreo con cobertura global.</p>
                 <ul class="check-list">
                     <li><i class="fas fa-check"></i> Flete Marítimo (FCL y LCL)</li>
                     <li><i class="fas fa-check"></i> Flete Aéreo Express</li>
-                    <li><i class="fas fa-check"></i> Seguro de Carga</li>
+                    <li><i class="fas fa-check"></i> Seguro de Carga Internacional</li>
+                    <li><i class="fas fa-check"></i> Consolidación y distribución</li>
                 </ul>
             </div>
         </div>
     </section>
 
+    <!-- PROCESO -->
     <section class="section-padding timeline-section" id="proceso">
         <div class="section-header" data-aos="fade-up">
             <h2>Proceso de Importación</h2>
             <p>Simplificamos la logística en 4 pasos</p>
+            <div class="divider"></div>
         </div>
         <div class="timeline-container">
             <div class="timeline-line"></div>
             <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content"><h3 style="color:var(--sea-blue);">01. Cotización</h3><p>Analizamos tu carga y definimos la mejor ruta.</p></div>
+                <div class="timeline-content">
+                    <h3 style="color:var(--primary-blue); margin-bottom: 10px;">01. Cotización</h3>
+                    <p style="color: var(--text-light);">Analizamos tu carga y definimos la mejor ruta, modalidad y costos.</p>
+                </div>
                 <div class="timeline-dot"></div>
             </div>
             <div class="timeline-item" data-aos="fade-left">
-                <div class="timeline-content"><h3 style="color:var(--sea-blue);">02. Embarque</h3><p>Coordinamos el recojo y transporte.</p></div>
+                <div class="timeline-content">
+                    <h3 style="color:var(--primary-blue); margin-bottom: 10px;">02. Embarque</h3>
+                    <p style="color: var(--text-light);">Coordinamos el recojo, embalaje y transporte internacional.</p>
+                </div>
                 <div class="timeline-dot"></div>
             </div>
             <div class="timeline-item" data-aos="fade-right">
-                <div class="timeline-content"><h3 style="color:var(--sea-blue);">03. Aduanas</h3><p>Tramitamos el levante antes de la llegada.</p></div>
+                <div class="timeline-content">
+                    <h3 style="color:var(--primary-blue); margin-bottom: 10px;">03. Aduanas</h3>
+                    <p style="color: var(--text-light);">Tramitamos el levante aduanero antes de la llegada de la mercancía.</p>
+                </div>
                 <div class="timeline-dot"></div>
             </div>
             <div class="timeline-item" data-aos="fade-left">
-                <div class="timeline-content"><h3 style="color:var(--sea-blue);">04. Entrega</h3><p>Transportamos la carga a tu almacén.</p></div>
+                <div class="timeline-content">
+                    <h3 style="color:var(--primary-blue); margin-bottom: 10px;">04. Entrega</h3>
+                    <p style="color: var(--text-light);">Transportamos la carga a tu almacén con seguimiento en tiempo real.</p>
+                </div>
                 <div class="timeline-dot"></div>
             </div>
         </div>
     </section>
 
+    <!-- TESTIMONIOS -->
     <section class="testimonials-section" id="testimonios">
         <div class="section-header" data-aos="fade-up">
-            <h2>Confianza que Transciende</h2>
+            <h2>Confianza que Trasciende</h2>
+            <p>Lo que dicen nuestros clientes</p>
             <div class="divider"></div>
         </div>
         <div class="testimonial-container">
             <div class="testimonial-item" data-aos="fade-up">
                 <div class="testimonial-logo"><img src="logos/bionnovation.png" alt="Bionnovation"></div>
                 <div class="testimonial-content">
-                    <div class="testimonial-text">"Destaco la cordialidad y el compromiso con el que nos ayudan. Su experiencia en el sector biomédico ha sido fundamental."</div>
+                    <div class="testimonial-text">"Destaco la cordialidad y el compromiso con el que nos ayudan. Su experiencia en el sector biomédico ha sido fundamental para optimizar nuestros procesos de importación."</div>
                     <div class="testimonial-author">BIONNOVATION - Biomedical</div>
                 </div>
             </div>
             <div class="testimonial-item" data-aos="fade-up">
                 <div class="testimonial-logo"><img src="logos/reset.png" alt="Reset"></div>
                 <div class="testimonial-content">
-                    <div class="testimonial-text">"Los gerentes se involucran en la gestión, eso me da seguridad y demuestra su compromiso con los clientes."</div>
+                    <div class="testimonial-text">"Los gerentes se involucran personalmente en la gestión, eso me da seguridad y demuestra su compromiso real con los clientes. Han sido un partner estratégico."</div>
                     <div class="testimonial-author">RESET - Electrónica e Ingeniería S.M.I.</div>
                 </div>
             </div>
              <div class="testimonial-item" data-aos="fade-up">
                 <div class="testimonial-logo"><img src="logos/orvpimpor.png" alt="ORVPIMPOR"></div>
                 <div class="testimonial-content">
-                    <div class="testimonial-text">"Son especialistas en Comercio Exterior, por eso nuestra carga sale más rápido. Han optimizado nuestros procesos."</div>
+                    <div class="testimonial-text">"Son especialistas en Comercio Exterior, por eso nuestra carga sale más rápido. Han optimizado nuestros procesos reduciendo tiempos y costos significativamente."</div>
                     <div class="testimonial-author">ORVPIMPOR BIOTECHNOLOGY</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contacto">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <img src="logo.png" alt="Sea Group" style="width: 180px; filter: brightness(0) invert(1); margin-bottom: 20px;">
-                <p>Tu socio estratégico en comercio exterior.</p>
-                <div style="margin-top:20px; display:flex; gap:10px;">
-                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+    <!-- NUEVO FOOTER -->
+    <footer class="footer" id="contacto">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SEA</h3>
+                <span class="footer-subtitle">LOGISTICS GROUP</span>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <span>Av. Patriotas Nro. 431 Ofic. 601<br>Lima - Lima - San Miguel</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>Cel: +51912460850<br>Cel: +51927843508</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <span>Email: jcastillo@seagroupperu.com<br>scastillo@seagroupperu.com</span>
+                    </div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <ul class="footer-links">
-                    <li><i class="fas fa-phone" style="color:var(--sea-red);"></i> +51 934 290 174</li>
-                    <li><i class="fas fa-envelope" style="color:var(--sea-red);"></i> comercial@seagroupperu.com</li>
-                    <li><i class="fas fa-map-marker-alt" style="color:var(--sea-red);"></i> Callao, Lima - Perú</li>
+            
+            <div class="footer-services">
+                <h4 style="color: white; font-size: 1.2rem; margin-bottom: 20px;">Servicios</h4>
+                <ul class="services-list">
+                    <li><i class="fas fa-arrow-right"></i><a href="#servicios">Agencia De Carga</a></li>
+                    <li><i class="fas fa-arrow-right"></i><a href="#servicios">Agencia De Aduana</a></li>
+                    <li><i class="fas fa-arrow-right"></i><a href="#servicios">Transporte</a></li>
+                    <li><i class="fas fa-arrow-right"></i><a href="#servicios">Asesoría Aduanera</a></li>
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; padding: 20px; font-size: 0.9rem; border-top: 1px solid #1e293b;">
-            &copy; 2024 Sea Group Peru. Todos los derechos reservados.
+        
+        <div class="footer-bottom">
+            <p>Copyright © 2026 Sea Group Peru. Todos los derechos reservados.</p>
+            <p class="credits">Desarrollado por <a href="#" target="_blank">Cambia | Janeth Vilela</a></p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 100, duration: 800 });
+        // Inicializar AOS
+        AOS.init({ 
+            once: true, 
+            offset: 100, 
+            duration: 800,
+            easing: 'ease-out-cubic'
+        });
 
-        // Sticky Navbar
+        // Header scroll effect
         window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            const header = document.getElementById('header');
+            header.classList.toggle('scrolled', window.scrollY > 20);
         });
 
         // Mobile Menu
         const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+        const mainNav = document.getElementById('mainNav');
+        
         menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-bars');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
+            mainNav.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        
+        // Cerrar menú al hacer clic en enlace
+        document.querySelectorAll('.nav-link, .blog-btn').forEach(link => {
             link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+                mainNav.classList.remove('active');
                 menuToggle.querySelector('i').classList.add('fa-bars');
                 menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Script para botones de servicio circulares
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remover clase active de todos
+                document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
+                // Agregar clase active al botón clickeado
+                this.classList.add('active');
+                // Marcar el input correspondiente
+                this.querySelector('input').checked = true;
             });
         });
 
@@ -616,43 +1439,119 @@
             const exp = document.getElementById('experiencia').value;
             const servicio = document.querySelector('input[name="servicio"]:checked').value;
 
-            const mensaje = `*HOLA SEA GROUP, COTIZACIÓN*%0A` +
+            const mensaje = `*COTIZACIÓN SEA GROUP PERU*%0A%0A` +
                             `👤 *Cliente:* ${nombre}%0A` +
                             `📱 *WhatsApp:* ${tel}%0A` +
-                            `🚢 *Exp:* ${exp}%0A` +
-                            `📦 *Servicio:* ${servicio}`;
+                            `🌎 *Experiencia en importación:* ${exp}%0A` +
+                            `📦 *Servicio solicitado:* ${servicio}%0A%0A` +
+                            `_Gracias por contactar a Sea Group Perú. Un asesor se comunicará contigo pronto._`;
 
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
+            btn.disabled = true;
+            
             setTimeout(() => {
                 window.open(`https://wa.me/51934290174?text=${mensaje}`, '_blank');
                 btn.innerHTML = originalText;
+                btn.disabled = false;
                 document.getElementById('seaForm').reset();
+                
+                // Resetear botones de servicio
+                document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('.service-btn').classList.add('active');
+                document.querySelector('.service-btn input').checked = true;
             }, 1000);
         });
 
-        // Counters
+        // Counters Animation
         const statsSection = document.querySelector('.stats-section');
         let counted = false;
         
         const animateCounters = () => {
             document.querySelectorAll('.counter').forEach(counter => {
                 const target = +counter.getAttribute('data-target');
-                const updateCount = () => {
-                    const count = +counter.innerText;
-                    const inc = target / 200;
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count + inc);
-                        setTimeout(updateCount, 20);
-                    } else { counter.innerText = target + (target === 100 ? '%' : '+'); }
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        if (current > target) current = target;
+                        counter.innerText = Math.floor(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target + (target === 100 ? '%' : '+');
+                    }
                 };
-                updateCount();
+                
+                updateCounter();
             });
         };
 
         window.addEventListener('scroll', () => {
-            if(!counted && window.scrollY > statsSection.offsetTop - 500) {
-                animateCounters(); counted = true;
+            if (!counted && window.scrollY > statsSection.offsetTop - 500) {
+                animateCounters();
+                counted = true;
             }
+        });
+
+        // Smooth Scrolling para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '#blog') return;
+                
+                e.preventDefault();
+                const targetId = href;
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animación para logos de clientes
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoContainers = document.querySelectorAll('.client-logo-container');
+            
+            logoContainers.forEach((container, index) => {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    container.style.transition = 'all 0.6s ease';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+            
+            // Iniciar contadores si la sección ya es visible
+            if (window.scrollY > statsSection.offsetTop - 500) {
+                animateCounters();
+                counted = true;
+            }
+        });
+
+        // Tooltip para logos de clientes
+        document.querySelectorAll('.client-logo-container').forEach(container => {
+            container.addEventListener('mouseenter', function() {
+                const tooltip = this.querySelector('.client-tooltip');
+                if (tooltip) {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.transform = 'translateY(0)';
+                }
+            });
+            
+            container.addEventListener('mouseleave', function() {
+                const tooltip = this.querySelector('.client-tooltip');
+                if (tooltip) {
+                    tooltip.style.opacity = '0';
+                    tooltip.style.transform = 'translateY(10px)';
+                }
+            });
         });
     </script>
 </body>
