@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            /* --- PALETA BASE (Mantenida del logo) --- */
+            /* --- PALETA BASE --- */
             --primary-red: #be1522;
             --dark-red: #a0081a;
             --brand-gray: #606060;
@@ -38,7 +38,7 @@
             background-color: var(--off-white);
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER ACTUALIZADO --- */
         .header {
             position: fixed;
             top: 0;
@@ -46,7 +46,7 @@
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            padding: 15px 5%;
+            padding: 10px 5%; /* Padding ajustado para dar espacio al logo más grande */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -56,18 +56,52 @@
         .header.scrolled {
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            padding: 5px 5%; /* Se contrae un poco al hacer scroll */
         }
 
+        /* LOGO MÁS GRANDE */
         .logo-container img {
-            height: 50px;
+            height: 85px; /* Aumentado de 50px a 85px */
             width: auto;
             transition: 0.3s;
+            /* El filtro asegura que el logo transparente se vea blanco sólido sobre el rojo */
             filter: brightness(0) invert(1);
+            display: block;
+        }
+        
+        .header.scrolled .logo-container img {
+            height: 70px; /* Reducción suave al hacer scroll */
+        }
+
+        /* CONTENEDOR DERECHO (REDES + NAV) */
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        /* REDES SOCIALES (NUEVO) */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.2rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--off-white);
+            transform: translateY(-2px);
         }
 
         .main-nav {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
         }
 
@@ -105,13 +139,13 @@
         .blog-btn {
             background: white;
             color: var(--primary-red);
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
+            padding: 8px 25px;
+            border-radius: 30px; /* Más redondeado como en la imagen */
+            font-weight: 800; /* Más negrita */
             text-decoration: none;
             transition: all 0.3s;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
@@ -138,7 +172,7 @@
             color: var(--light-gray);
         }
 
-        /* --- HERO SECTION (MODIFICADO PARA FONDO A COLOR) --- */
+        /* --- HERO SECTION (FONDO A COLOR) --- */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -146,7 +180,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding-top: 120px;
+            padding-top: 140px; /* Aumentado por el header más grande */
             padding-bottom: 100px;
         }
 
@@ -156,7 +190,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Asegúrate de que 'fondo.png' sea una imagen a color */
             background: url('fondo.png') no-repeat center center/cover;
             z-index: -2;
             animation: kenBurns 20s infinite alternate;
@@ -173,7 +206,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* CAMBIO: Se eliminó el degradado rojo. Se usa una capa oscura muy ligera para legibilidad del texto blanco. */
             background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
@@ -224,7 +256,7 @@
             color: white;
             font-weight: 500;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2); /* Un poco más claro para contrastar con fondo a color */
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 30px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -622,7 +654,7 @@
             color: var(--text-light);
         }
 
-        /* --- SECCIÓN DE SERVICIOS DETALLADOS (MODIFICADO PARA IMÁGENES A COLOR) --- */
+        /* --- SECCIÓN DE SERVICIOS DETALLADOS --- */
         .service-full {
             display: flex;
             flex-wrap: wrap;
@@ -641,7 +673,6 @@
         .service-img {
             flex: 1 1 400px;
             min-height: 300px;
-            /* CAMBIO: Se eliminó el fondo degradado rojo */
             background: transparent;
         }
 
@@ -649,7 +680,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* CAMBIO: Se eliminó la opacidad y el blend mode para mostrar el color real */
             opacity: 1;
             mix-blend-mode: normal;
             filter: none;
@@ -769,7 +799,6 @@
             object-fit: contain;
         }
 
-        /* Estilos para el primer testimonio (Rojo y difuminado) */
         .testimonial-item:first-child .testimonial-content {
             flex: 1;
             padding: 40px;
@@ -794,7 +823,6 @@
             padding-top: 15px;
         }
 
-        /* Estilos para los testimonios siguientes (Claros e interactivos) */
         .testimonial-item:not(:first-child) .testimonial-content {
             flex: 1;
             padding: 40px;
@@ -942,7 +970,8 @@
                 display: block;
             }
             
-            .main-nav {
+            /* Ajuste del contenedor derecho para móvil */
+            .header-right {
                 position: fixed;
                 top: 80px;
                 left: -100%;
@@ -951,27 +980,43 @@
                 background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
                 flex-direction: column;
                 align-items: center;
-                padding-top: 40px;
+                justify-content: center;
                 transition: 0.5s;
-                gap: 30px;
+                gap: 40px;
             }
             
-            .main-nav.active {
+            .header-right.active {
                 left: 0;
             }
+
+            .main-nav {
+                flex-direction: column;
+                width: 100%;
+                justify-content: center;
+            }
             
+            /* Redes sociales en móvil */
+            .social-icons {
+                margin-bottom: 20px;
+                order: -1; /* Poner arriba */
+            }
+
+            .social-link {
+                font-size: 1.5rem;
+            }
+
             .nav-link {
                 font-size: 1.2rem;
             }
             
             .blog-btn {
-                margin-top: 20px;
+                margin-top: 10px;
                 font-size: 1rem;
                 padding: 12px 30px;
             }
             
             .hero {
-                padding-top: 100px;
+                padding-top: 120px;
             }
             
             .container {
@@ -1115,18 +1160,28 @@
 
     <header class="header" id="header">
         <div class="logo-container">
-            <img src="logo.png" alt="Sea Group Peru">
+            <a href="https://seagroupperu.com/">
+                <img src="logo.png" alt="Sea Group Peru">
+            </a>
         </div>
         
         <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
         
-        <nav class="main-nav" id="mainNav">
-            <a href="#inicio" class="nav-link">Inicio</a>
-            <a href="#servicios" class="nav-link">Servicios</a>
-            <a href="#nosotros" class="nav-link">Nosotros</a>
-            <a href="#contacto" class="nav-link">Contacto</a>
-            <a href="#blog" class="blog-btn">Blog</a>
-        </nav>
+        <div class="header-right" id="headerRight">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/18AjhJFiiH/" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/sealogisticsperu?igsh=MWM2bzRweDBmdG5yZw==" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@seagroup.importaciones?_r=1&_t=ZS-93oUIHAsA6e" target="_blank" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+
+            <nav class="main-nav">
+                <a href="https://seagroupperu.com/" class="nav-link">Inicio</a>
+                <a href="https://seagroupperu.com/servicios/" class="nav-link">Servicios</a>
+                <a href="https://seagroupperu.com/nosotros/" class="nav-link">Nosotros</a>
+                <a href="https://seagroupperu.com/contact/" class="nav-link">Contacto</a>
+                <a href="#blog" class="blog-btn">BLOG</a>
+            </nav>
+        </div>
     </header>
 
     <section class="hero" id="inicio">
@@ -1421,10 +1476,10 @@
 
         // Mobile Menu
         const menuToggle = document.getElementById('menuToggle');
-        const mainNav = document.getElementById('mainNav');
+        const headerRight = document.getElementById('headerRight'); // Nuevo ID
         
         menuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
+            headerRight.classList.toggle('active');
             const icon = menuToggle.querySelector('i');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
@@ -1433,7 +1488,7 @@
         // Cerrar menú al hacer clic en enlace
         document.querySelectorAll('.nav-link, .blog-btn').forEach(link => {
             link.addEventListener('click', () => {
-                mainNav.classList.remove('active');
+                headerRight.classList.remove('active');
                 menuToggle.querySelector('i').classList.add('fa-bars');
                 menuToggle.querySelector('i').classList.remove('fa-times');
             });
@@ -1515,25 +1570,6 @@
                 animateCounters();
                 counted = true;
             }
-        });
-
-        // Smooth Scrolling para enlaces internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#' || href === '#blog') return;
-                
-                e.preventDefault();
-                const targetId = href;
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         });
 
         // Animación para logos de clientes
