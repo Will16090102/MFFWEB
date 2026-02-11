@@ -11,17 +11,30 @@
 
     <style>
         :root {
-            /* PALETA ROJA Y BLANCA */
-            --primary-red: #e31e24;
-            --dark-red: #b01217;
-            --light-red: #ff6b6b;
-            --soft-red: #ff9a9a;
+            /* --- NUEVA PALETA SEGÚN IMAGEN --- */
+            
+            /* Rojo Principal (Logo: R190 G21 B34) */
+            --primary-red: #be1522;
+            
+            /* Rojo Oscuro (Logo Sombra: R160 G8 B26) */
+            --dark-red: #a0081a;
+            
+            /* Gris Corporativo (Texto Logo: R96 G96 B96) */
+            --brand-gray: #606060;
+
+            /* Variaciones derivadas para UI */
+            --light-red: #d1454e;   /* Un tono más claro del #be1522 para hovers suaves */
+            --soft-red: #f9dadd;    /* Para fondos muy suaves */
+            
+            /* Neutros */
             --white: #ffffff;
-            --off-white: #f8fafc;
-            --light-gray: #e2e8f0;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --input-bg: #f1f5f9;
+            --off-white: #f4f4f4;
+            --light-gray: #e0e0e0;
+            
+            /* Textos ajustados a la marca */
+            --text-dark: #2c2c2c;   /* Casi negro, neutro */
+            --text-light: #606060;  /* Usamos el gris oficial del logo para textos secundarios */
+            --input-bg: #f9f9f9;
         }
 
         * { 
@@ -37,11 +50,12 @@
             background-color: var(--off-white);
         }
 
-        /* --- HEADER ROJO --- */
+        /* --- HEADER CON DEGRADADO NUEVO --- */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
+            /* Degradado ajustado con los nuevos rojos */
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
@@ -93,12 +107,12 @@
         }
 
         .nav-link:hover {
-            color: var(--light-red);
+            color: #ffcccc; /* Un tono muy claro para hover sobre el rojo oscuro */
         }
 
         .nav-link:hover::after {
             width: 100%;
-            background: var(--light-red);
+            background: #ffcccc;
         }
 
         .blog-btn {
@@ -116,7 +130,7 @@
         }
 
         .blog-btn:hover {
-            background: var(--light-red);
+            background: var(--text-dark); /* Cambio a oscuro para contraste */
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
@@ -134,7 +148,7 @@
         }
 
         .menu-toggle:hover {
-            color: var(--light-red);
+            color: var(--light-gray);
         }
 
         /* --- HERO SECTION --- */
@@ -171,10 +185,11 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Actualizado con los valores RGB de la imagen: R190 G21 B34 y R160 G8 B26 */
             background: linear-gradient(135deg, 
-                rgba(227, 30, 36, 0.92) 0%, 
-                rgba(176, 18, 23, 0.85) 50%, 
-                rgba(160, 16, 21, 0.8) 100%);
+                rgba(190, 21, 34, 0.94) 0%, 
+                rgba(160, 8, 26, 0.90) 50%, 
+                rgba(130, 5, 20, 0.85) 100%);
             z-index: -1;
         }
 
@@ -253,6 +268,7 @@
             left: 0;
             right: 0;
             height: 5px;
+            /* Degradado ajustado a los nuevos rojos */
             background: linear-gradient(90deg, var(--primary-red), var(--light-red), var(--primary-red));
             background-size: 200% 100%;
             animation: gradientShift 3s ease infinite;
@@ -310,14 +326,15 @@
         .input-field:focus {
             background: #fff;
             border-color: var(--primary-red);
-            box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.1);
+            /* Sombra con el RGB nuevo (190, 21, 34) */
+            box-shadow: 0 0 0 4px rgba(190, 21, 34, 0.1);
         }
 
         .input-wrapper:focus-within i.icon-field {
             color: var(--dark-red);
         }
 
-        /* BOTONES DE SERVICIO CIRCULARES COMPACTOS */
+        /* BOTONES DE SERVICIO */
         .service-selection {
             display: flex;
             gap: 10px;
@@ -345,19 +362,19 @@
         .service-btn:hover {
             transform: translateY(-5px);
             border-color: var(--primary-red);
-            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.1);
+            box-shadow: 0 10px 20px rgba(190, 21, 34, 0.1);
         }
 
         .service-btn.active {
             border-color: var(--primary-red);
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--soft-red) 100%);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.15);
+            box-shadow: 0 10px 20px rgba(190, 21, 34, 0.15);
         }
 
         .service-btn i {
             font-size: 1.5rem;
-            color: var(--text-light);
+            color: var(--text-light); /* Ahora es #606060 */
             margin-bottom: 8px;
             transition: 0.3s;
         }
@@ -423,7 +440,7 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
+            box-shadow: 0 10px 20px rgba(190, 21, 34, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -433,11 +450,11 @@
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(227, 30, 36, 0.4);
-            background: linear-gradient(135deg, var(--dark-red) 0%, #a01015 100%);
+            box-shadow: 0 15px 30px rgba(190, 21, 34, 0.4);
+            background: linear-gradient(135deg, var(--dark-red) 0%, #800615 100%);
         }
 
-        /* --- SECCIÓN DE LOGOS DE CLIENTES (SOLO 3 LOGOS) --- */
+        /* --- SECCIÓN DE LOGOS --- */
         .clients-section {
             background: white;
             padding: 60px 5%;
@@ -459,7 +476,7 @@
         }
 
         .clients-header p {
-            color: var(--text-light);
+            color: var(--text-light); /* Usa el gris del logo (#606060) */
             font-size: 1rem;
             max-width: 600px;
             margin: 0 auto;
@@ -596,7 +613,7 @@
         .icon-box {
             width: 70px;
             height: 70px;
-            background: rgba(227, 30, 36, 0.1);
+            background: rgba(190, 21, 34, 0.1); /* RGBA actualizado */
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -617,6 +634,11 @@
 
         .benefit-card:hover i {
             color: white;
+        }
+        
+        /* Ajuste de color de texto en beneficios */
+        .benefit-card p {
+            color: var(--text-light); /* #606060 */
         }
 
         /* --- SECCIÓN DE SERVICIOS DETALLADOS --- */
@@ -646,6 +668,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0.9;
+            mix-blend-mode: multiply; /* Para que la imagen tome el tinte rojo */
         }
 
         .service-text {
@@ -723,10 +746,10 @@
             background: var(--primary-red);
             border-radius: 50%;
             border: 4px solid white;
-            box-shadow: 0 0 0 4px rgba(227, 30, 36, 0.2);
+            box-shadow: 0 0 0 4px rgba(190, 21, 34, 0.2);
         }
 
-        /* --- SECCIÓN DE TESTIMONIOS (SOLO 3) --- */
+        /* --- SECCIÓN DE TESTIMONIOS --- */
         .testimonials-section {
             background: white;
             padding: 100px 5%;
@@ -1064,7 +1087,6 @@
 </head>
 <body>
 
-    <!-- HEADER ROJO -->
     <header class="header" id="header">
         <div class="logo-container">
             <img src="logo.png" alt="Sea Group Peru">
@@ -1081,7 +1103,6 @@
         </nav>
     </header>
 
-    <!-- HERO SECTION -->
     <section class="hero" id="inicio">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
@@ -1153,7 +1174,6 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE LOGOS DE CLIENTES (SOLO 3 LOGOS) -->
     <section class="clients-section" data-aos="fade-up" data-aos-delay="200">
         <div class="clients-header">
             <h3>Empresas que Confían en Nuestra Experiencia</h3>
@@ -1175,7 +1195,6 @@
         </div>
     </section>
 
-    <!-- ESTADÍSTICAS -->
     <div class="stats-section" data-aos="fade-up">
         <div class="stats-grid">
             <div class="stat-item"><h2 class="counter" data-target="12">0</h2><p>Años de Experiencia</p></div>
@@ -1185,7 +1204,6 @@
         </div>
     </div>
 
-    <!-- BENEFICIOS -->
     <section class="section-padding" id="beneficios">
         <div class="section-header" data-aos="fade-up">
             <h2>¿Por qué elegir Sea Group?</h2>
@@ -1210,7 +1228,6 @@
         </div>
     </section>
 
-    <!-- SERVICIOS -->
     <section class="section-padding" style="background: var(--off-white);" id="servicios">
         <div class="section-header" data-aos="fade-up">
             <h2>Nuestros Servicios</h2>
@@ -1250,7 +1267,6 @@
         </div>
     </section>
 
-    <!-- PROCESO -->
     <section class="section-padding timeline-section" id="proceso">
         <div class="section-header" data-aos="fade-up">
             <h2>Proceso de Importación</h2>
@@ -1290,7 +1306,6 @@
         </div>
     </section>
 
-    <!-- TESTIMONIOS (SOLO 3) -->
     <section class="testimonials-section" id="testimonios">
         <div class="section-header" data-aos="fade-up">
             <h2>Confianza que Trasciende</h2>
@@ -1322,7 +1337,6 @@
         </div>
     </section>
 
-    <!-- FOOTER ROJO -->
     <footer class="footer" id="contacto">
         <div class="footer-content">
             <div class="footer-info">
