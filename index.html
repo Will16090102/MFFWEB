@@ -11,29 +11,17 @@
 
     <style>
         :root {
-            /* --- NUEVA PALETA SEGÚN IMAGEN --- */
-            
-            /* Rojo Principal (Logo: R190 G21 B34) */
+            /* --- PALETA BASE --- */
             --primary-red: #be1522;
-            
-            /* Rojo Oscuro (Logo Sombra: R160 G8 B26) */
             --dark-red: #a0081a;
-            
-            /* Gris Corporativo (Texto Logo: R96 G96 B96) */
             --brand-gray: #606060;
-
-            /* Variaciones derivadas para UI */
-            --light-red: #d1454e;   /* Un tono más claro del #be1522 para hovers suaves */
-            --soft-red: #f9dadd;    /* Para fondos muy suaves */
-            
-            /* Neutros */
+            --light-red: #d1454e;
+            --soft-red: #f9dadd;
             --white: #ffffff;
             --off-white: #f4f4f4;
             --light-gray: #e0e0e0;
-            
-            /* Textos ajustados a la marca */
-            --text-dark: #2c2c2c;   /* Casi negro, neutro */
-            --text-light: #606060;  /* Usamos el gris oficial del logo para textos secundarios */
+            --text-dark: #2c2c2c;
+            --text-light: #606060;
             --input-bg: #f9f9f9;
         }
 
@@ -50,12 +38,11 @@
             background-color: var(--off-white);
         }
 
-        /* --- HEADER CON DEGRADADO NUEVO --- */
+        /* --- HEADER CON DEGRADADO --- */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            /* Degradado ajustado con los nuevos rojos */
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
@@ -75,7 +62,7 @@
             height: 50px;
             width: auto;
             transition: 0.3s;
-            filter: brightness(0) invert(1); /* Logo blanco */
+            filter: brightness(0) invert(1);
         }
 
         .main-nav {
@@ -107,7 +94,7 @@
         }
 
         .nav-link:hover {
-            color: #ffcccc; /* Un tono muy claro para hover sobre el rojo oscuro */
+            color: #ffcccc;
         }
 
         .nav-link:hover::after {
@@ -130,7 +117,7 @@
         }
 
         .blog-btn:hover {
-            background: var(--text-dark); /* Cambio a oscuro para contraste */
+            background: var(--text-dark);
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
@@ -185,7 +172,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Actualizado con los valores RGB de la imagen: R190 G21 B34 y R160 G8 B26 */
             background: linear-gradient(135deg, 
                 rgba(190, 21, 34, 0.94) 0%, 
                 rgba(160, 8, 26, 0.90) 50%, 
@@ -268,7 +254,6 @@
             left: 0;
             right: 0;
             height: 5px;
-            /* Degradado ajustado a los nuevos rojos */
             background: linear-gradient(90deg, var(--primary-red), var(--light-red), var(--primary-red));
             background-size: 200% 100%;
             animation: gradientShift 3s ease infinite;
@@ -326,7 +311,6 @@
         .input-field:focus {
             background: #fff;
             border-color: var(--primary-red);
-            /* Sombra con el RGB nuevo (190, 21, 34) */
             box-shadow: 0 0 0 4px rgba(190, 21, 34, 0.1);
         }
 
@@ -374,7 +358,7 @@
 
         .service-btn i {
             font-size: 1.5rem;
-            color: var(--text-light); /* Ahora es #606060 */
+            color: var(--text-light);
             margin-bottom: 8px;
             transition: 0.3s;
         }
@@ -396,7 +380,6 @@
             color: var(--primary-red);
         }
 
-        /* Indicador de selección */
         .service-btn::after {
             content: '✓';
             position: absolute;
@@ -476,7 +459,7 @@
         }
 
         .clients-header p {
-            color: var(--text-light); /* Usa el gris del logo (#606060) */
+            color: var(--text-light);
             font-size: 1rem;
             max-width: 600px;
             margin: 0 auto;
@@ -613,7 +596,7 @@
         .icon-box {
             width: 70px;
             height: 70px;
-            background: rgba(190, 21, 34, 0.1); /* RGBA actualizado */
+            background: rgba(190, 21, 34, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -636,9 +619,8 @@
             color: white;
         }
         
-        /* Ajuste de color de texto en beneficios */
         .benefit-card p {
-            color: var(--text-light); /* #606060 */
+            color: var(--text-light);
         }
 
         /* --- SECCIÓN DE SERVICIOS DETALLADOS --- */
@@ -668,7 +650,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0.9;
-            mix-blend-mode: multiply; /* Para que la imagen tome el tinte rojo */
+            mix-blend-mode: multiply;
         }
 
         .service-text {
@@ -776,6 +758,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .testimonial-logo img {
@@ -784,28 +767,70 @@
             object-fit: contain;
         }
 
-        .testimonial-content {
+        /* Estilos para el primer testimonio (Rojo y difuminado) */
+        .testimonial-item:first-child .testimonial-content {
             flex: 1;
             padding: 40px;
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             color: white;
             border-radius: 20px;
             position: relative;
+            box-shadow: 0 15px 30px rgba(190, 21, 34, 0.3);
         }
 
-        .testimonial-text {
+        .testimonial-item:first-child .testimonial-text {
             font-style: italic;
             margin-bottom: 20px;
             font-size: 1.1rem;
             line-height: 1.6;
         }
 
-        .testimonial-author {
+        .testimonial-item:first-child .testimonial-author {
             font-weight: 700;
             color: var(--off-white);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 15px;
         }
+
+        /* Estilos para los testimonios siguientes (Claros e interactivos) */
+        .testimonial-item:not(:first-child) .testimonial-content {
+            flex: 1;
+            padding: 40px;
+            background: var(--off-white); /* Fondo claro */
+            color: var(--text-dark); /* Texto oscuro */
+            border-radius: 20px;
+            position: relative;
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s ease; /* Transición suave para hover */
+        }
+
+        .testimonial-item:not(:first-child) .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .testimonial-item:not(:first-child) .testimonial-author {
+            font-weight: 700;
+            color: var(--primary-red); /* Autor en rojo */
+            border-top: 1px solid var(--light-gray);
+            padding-top: 15px;
+        }
+
+        /* Efectos Hover para los testimonios claros */
+        .testimonial-item:not(:first-child):hover .testimonial-content {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .testimonial-item:not(:first-child):hover .testimonial-logo {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--primary-red);
+        }
+
 
         /* --- FOOTER ROJO --- */
         .footer {
@@ -1320,6 +1345,7 @@
                     <div class="testimonial-author">BIONNOVATION - Biomedical</div>
                 </div>
             </div>
+            
             <div class="testimonial-item" data-aos="fade-up">
                 <div class="testimonial-logo"><img src="logos/reset.png" alt="Reset"></div>
                 <div class="testimonial-content">
@@ -1327,7 +1353,8 @@
                     <div class="testimonial-author">RESET - Electrónica e Ingeniería S.M.I.</div>
                 </div>
             </div>
-             <div class="testimonial-item" data-aos="fade-up">
+            
+            <div class="testimonial-item" data-aos="fade-up">
                 <div class="testimonial-logo"><img src="logos/tmc.png" alt="TMC"></div>
                 <div class="testimonial-content">
                     <div class="testimonial-text">"Son especialistas en Comercio Exterior, por eso nuestra carga sale más rápido. Han optimizado nuestros procesos reduciendo tiempos y costos significativamente."</div>
